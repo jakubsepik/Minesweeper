@@ -17,8 +17,7 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Minesweeper");
         stage.setMaximized(true);
-
-        //stage.getIcons().add(new Image("file:icon.png"));
+        stage.getIcons().add(new Image("file:docasicon.png"));
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
@@ -29,6 +28,7 @@ public class Application extends javafx.application.Application {
 
         scene.getStylesheets().add(getClass().getResource("style.css").toString());
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
