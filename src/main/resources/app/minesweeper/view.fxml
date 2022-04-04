@@ -12,7 +12,7 @@
             <Image url="@image1.png" />
          </image>
       </ImageView>
-      <Button fx:id="startButton" layoutX="416.0" layoutY="220.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" text="Start" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="220.0" />
+      <Button fx:id="startButton" onAction="#handleButtonAction" layoutX="416.0" layoutY="220.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" text="Start" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="220.0" />
       <Button fx:id="aboutButton" layoutX="415.0" layoutY="295.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" text="About" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="300.0" />
       <Button fx:id="helpButton" layoutX="395.0" layoutY="377.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" text="Help" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="380.0" />
       <Button fx:id="exitButton" layoutX="410.0" layoutY="441.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" text="Exit" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="460.0" />
