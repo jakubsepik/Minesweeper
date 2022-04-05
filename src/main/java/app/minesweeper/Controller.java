@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class Controller implements Initializable {
     private AnchorPane backPanel;
     @FXML
     private Button startButton,aboutButton,helpButton,exitButton;
+    @FXML
+    private Rectangle blurry,secondPanel;
 
 
     @FXML

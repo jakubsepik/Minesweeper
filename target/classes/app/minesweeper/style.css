@@ -1,6 +1,20 @@
-/* Back panel CSS */
+/* Main back panel CSS */
 .backPanel{
-    -fx-background-color: linear-gradient(to left, rgba(210,14,61,1),rgba(255,150,41,1),rgba(255,150,41,1),rgba(210,14,61,1));
+    -fx-background-color: linear-gradient(to right, rgba(210,14,61,1),rgba(210,14,61,1),rgba(255,150,41,1),rgba(210,14,61,1));
     /*-fx-background-color: rgb(210,14,61);*/
 
+}
+
+/* Blurry back panel in main CSS */
+.blurry{
+    -fx-background-color: rgba(92, 113, 219,0.1);
+    -fx-stroke-width: 0;
+    -fx-pref-width: 600px;
+    -fx-min-width: 600px;
+    -fx-min-height: 1080px;
+}
+.secondPanel{
+    -fx-pref-width: 1320px;
+    -fx-min-width: 1000px;
+    -fx-min-height: 1080px;
 }
