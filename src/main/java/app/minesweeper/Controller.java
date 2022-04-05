@@ -44,6 +44,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 
 
@@ -57,13 +58,7 @@ public class Controller implements Initializable {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } else if(actionEvent.getSource()==aboutButton){
-            Parent root = FXMLLoader.load(getClass().getResource("aboutView.fxml"));
-            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } else if(actionEvent.getSource()==helpButton){
+        }  else if(actionEvent.getSource()==helpButton){
             Parent root = FXMLLoader.load(getClass().getResource("helpView.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
