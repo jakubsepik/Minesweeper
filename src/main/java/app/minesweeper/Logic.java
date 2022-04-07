@@ -1,15 +1,18 @@
 package app.minesweeper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Logic {
     private int size;
     private int mines;
-    private char[][] board;
+    private final ArrayList<int[]> flags;
+    private final char[][] board;
     Random rn = new Random();
     public Logic(int size) {
         this.size = size;
+        this.flags = new ArrayList<>();
         board = new char[size][size];
         for(int i=0;i<size;i++){
             char[] tmp = new char[size];
@@ -60,7 +63,26 @@ public class Logic {
                 i--;
         }
     }
-
+    public char getOne(int x,int y){
+        return board[x][y];
+    }
+    public boolean addFlag(int x,int y){
+        flags.add(new int[]{x,y});
+        return checkWin();
+    }
+    public boolean removeFlag(int x,int y){
+        flags.remove(new int[]{x,y});
+        return checkWin();
+    }
+    private boolean checkWin(){
+        if(flags.size()!=mines)
+            return false;
+        for (int[] flag : flags) {
+            if (board[flag[0]][flag[1]] != 'X')
+                return false;
+        }
+        return true;
+    }
     public char[][] getBoard() {
         return board;
     }

@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.minesweeper.GameControler">
+    <children>
+        <GridPane fx:id="board" layoutX="301.0" layoutY="518.0" >
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="0" GridPane.rowIndex="0" onMouseClicked="#clickGrid"/>
+                <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="0" GridPane.rowIndex="3" onMouseClicked="#clickGrid"/>
+                <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="0" GridPane.rowIndex="5" onMouseClicked="#clickGrid"/>
+                <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="2" GridPane.rowIndex="1" onMouseClicked="#clickGrid"/>
+            </children>
+        </GridPane>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.Controller">
-   <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@jebaited.gif" />
-         </image>
-      </ImageView>
-   </children>
+    </children>
 </AnchorPane>
