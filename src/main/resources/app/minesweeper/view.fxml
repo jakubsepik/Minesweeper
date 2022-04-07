@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="backPanel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="backPanel" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.Controller">
+   <children>
+      <Rectangle fx:id="blurry" arcHeight="5.0" arcWidth="5.0" fill="#38404772" height="1080.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fx:id="logo" fitHeight="230.0" fitWidth="500.0" layoutX="282.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="45.0">
+         <image>
+            <Image url="@image2.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="startButton" layoutX="416.0" layoutY="220.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Start" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="180.0" />
+      <Button fx:id="helpButton" layoutX="395.0" layoutY="377.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Help" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="260.0" />
+      <Button fx:id="exitButton" layoutX="410.0" layoutY="441.0" minHeight="50.0" minWidth="230.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Exit" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="340.0" />
+   </children>
+</AnchorPane>
