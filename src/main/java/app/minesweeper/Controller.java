@@ -56,13 +56,17 @@ public class Controller implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("gameView.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
             stage.setScene(scene);
+            stage.setFullScreen(true);
             stage.show();
         }  else if(actionEvent.getSource()==helpButton){
             Parent root = FXMLLoader.load(getClass().getResource("helpView.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
             stage.setScene(scene);
+            stage.setFullScreen(true);
             stage.show();
         } else if(actionEvent.getSource()==exitButton){
             Platform.exit();

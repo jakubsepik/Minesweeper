@@ -38,7 +38,9 @@ public class HelpControler implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
             stage.setScene(scene);
+            stage.setFullScreen(true);
             stage.show();
         }
     }
