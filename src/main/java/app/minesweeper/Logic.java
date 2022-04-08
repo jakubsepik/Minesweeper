@@ -1,5 +1,8 @@
 package app.minesweeper;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -85,5 +88,14 @@ public class Logic {
     }
     public char[][] getBoard() {
         return board;
+    }
+    public GridPane getGrid(){
+        GridPane grid = new GridPane();
+        for(int i=0;i<size;i++){
+            for(int o=0;o<size;o++){
+                grid.add(new Button(("button "+i+""+o)),i,o);
+            }
+        }
+        return grid;
     }
 }

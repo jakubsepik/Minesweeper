@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Minesweeper" target="17" />
+      <module name="Minesweeper" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>
