@@ -1,7 +1,7 @@
 package app.minesweeper;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -155,8 +155,7 @@ public class Logic {
                 btn.setOnAction(e -> {
                     int y =GridPane.getColumnIndex((Node) e.getSource());
                     int x =GridPane.getRowIndex((Node) e.getSource());
-                    System.out.println("x: " + x +", y: " + y);
-                    btn.setText(Character.toString(board[x][y]));
+                    onClick(grid, btn, x, y);
                 });
                 btn.setPrefWidth(50);
                 btn.setPrefHeight(50);
@@ -164,5 +163,12 @@ public class Logic {
             }
         }
         return grid;
+    }
+
+    public void onClick(GridPane grid, Button btn, int x, int y){
+        List<int[]> toShow = getOne(x, y);
+        System.out.println("x: " + x +", y: " + y);
+        btn.setText(Character.toString(board[x][y]));
+
     }
 }
