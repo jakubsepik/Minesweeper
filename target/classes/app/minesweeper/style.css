@@ -1,9 +1,18 @@
 /* Main back panel CSS */
 .backPanel{
     -fx-background-color: linear-gradient(to right, rgba(210,14,61,1),rgba(210,14,61,1),rgba(255,150,41,1),rgba(210,14,61,1));
-    /*-fx-background-color: rgb(210,14,61);*/
+}
+
+
+/* Game layout */
+.back{
 
 }
+
+.root{
+    -fx-alignment: center;
+}
+
 
 /* Blurry back panel in main CSS */
 .blurry{

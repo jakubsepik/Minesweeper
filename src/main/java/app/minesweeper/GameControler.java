@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -15,7 +16,8 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class GameControler implements Initializable {
-    public AnchorPane root;
+    @FXML
+    private AnchorPane root;
 
 
     @Override
