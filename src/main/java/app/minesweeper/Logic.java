@@ -1,5 +1,8 @@
 package app.minesweeper;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -93,7 +96,13 @@ public class Logic {
         GridPane grid = new GridPane();
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
-                grid.add(new Button(("button "+i+""+o)),i,o);
+                Button btn = new Button(Character.toString(board[i][o]));
+                btn.setOnAction(e -> {
+                    int x =GridPane.getColumnIndex((Node) e.getSource());
+                    int y =GridPane.getRowIndex((Node) e.getSource());
+                    System.out.println(x + " " + y);
+                });
+                grid.add(btn, i, o);
             }
         }
         return grid;

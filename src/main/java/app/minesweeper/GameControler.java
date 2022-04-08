@@ -24,12 +24,4 @@ public class GameControler implements Initializable {
         root.getChildren().add(gamelogic.getGrid());
 
     }
-
-    public void clickGrid(javafx.scene.input.MouseEvent event) {
-        
-        int x =GridPane.getColumnIndex((Node) event.getSource());
-        int y =GridPane.getRowIndex((Node) event.getSource());
-    }
-
-
 }
