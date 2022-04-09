@@ -1,15 +1,14 @@
 package app.minesweeper;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import app.minesweeper.GameControler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Logic {
     private int size;
@@ -70,9 +69,61 @@ public class Logic {
                 i--;
         }
     }
-    public char getOne(int x,int y){
-        return board[x][y];
+    public List<int[]> getOne(int x,int y){
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{x,y,board[x][y]});
+        if(board[x][y]!='0')
+            return list;
+        Queue<int[]> zeros = new LinkedList<>();
+        zeros.add(new int[]{x,y});
+
+        boolean zmena;
+        do{
+            zmena=false;
+            int size = zeros.size();
+            for(int i=0;i<size;i++){
+                int[] tmp = zeros.remove();
+                int xl = tmp[0];
+                int yl = tmp[1];
+
+                if (xl + 1 < size && !list.contains(new int[]{xl+1,yl,board[xl+1][yl]})) {
+                    list.add(new int[]{xl+1,yl,board[xl+1][yl]});
+                    if(board[xl+1][yl]=='0'){
+                        zeros.add(new int[]{xl+1,yl});
+                        zmena=true;
+                    }
+                }
+
+                if (xl - 1 > size && !list.contains(new int[]{xl+1,yl,board[xl-1][yl]})) {
+                    list.add(new int[]{xl-1,yl,board[xl-1][yl]});
+                    if(board[xl-1][yl]=='0'){
+                        zeros.add(new int[]{xl-1,yl});
+                        zmena=true;
+                    }
+                }
+
+                if (yl + 1 < size && !list.contains(new int[]{xl+1,yl,board[xl][yl+1]} )) {
+                    list.add(new int[]{xl,yl+1,board[xl][yl+1]});
+                    if(board[xl][yl+1]=='0'){
+                        zeros.add(new int[]{xl,yl+1});
+                        zmena=true;
+                    }
+                }
+
+                if (yl - 1 < size && !list.contains(new int[]{xl+1,yl,board[xl][yl-1]})) {
+                    list.add(new int[]{xl,yl-1,board[xl][yl-1]});
+                    if(board[xl][yl-1]=='0'){
+                        zeros.add(new int[]{xl,yl-1});
+                        zmena=true;
+                    }
+                }
+
+            }
+        }while(zmena);
+        zeros.clear();
+        return list;
     }
+
     public boolean addFlag(int x,int y){
         flags.add(new int[]{x,y});
         return checkWin();
@@ -92,26 +143,5 @@ public class Logic {
     }
     public char[][] getBoard() {
         return board;
-    }
-    public GridPane getGrid(){
-        GridPane grid = new GridPane();
-        grid.setVgap(5);
-        grid.setHgap(5);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        for(int i=0;i<size;i++){
-            for(int o=0;o<size;o++){
-                Button btn = new Button();
-                btn.setOnAction(e -> {
-                    int y =GridPane.getColumnIndex((Node) e.getSource());
-                    int x =GridPane.getRowIndex((Node) e.getSource());
-                    System.out.println("x: " + x +", y: " + y);
-                    btn.setText(Character.toString(board[x][y]));
-                });
-                btn.setPrefWidth(50);
-                btn.setPrefHeight(50);
-                grid.add(btn, i, o);
-            }
-        }
-        return grid;
     }
 }
