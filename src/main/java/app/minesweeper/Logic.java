@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import app.minesweeper.GameControler;
 
 import java.util.*;
 
@@ -93,7 +94,7 @@ public class Logic {
                     }
                 }
 
-                if (xl - 1 < size && !list.contains(new int[]{xl+1,yl,board[xl-1][yl]})) {
+                if (xl - 1 > size && !list.contains(new int[]{xl+1,yl,board[xl-1][yl]})) {
                     list.add(new int[]{xl-1,yl,board[xl-1][yl]});
                     if(board[xl-1][yl]=='0'){
                         zeros.add(new int[]{xl-1,yl});
@@ -142,33 +143,5 @@ public class Logic {
     }
     public char[][] getBoard() {
         return board;
-    }
-
-    public GridPane getGrid(){
-        GridPane grid = new GridPane();
-        grid.setVgap(5);
-        grid.setHgap(5);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        for(int i=0;i<size;i++){
-            for(int o=0;o<size;o++){
-                Button btn = new Button();
-                btn.setOnAction(e -> {
-                    int y =GridPane.getColumnIndex((Node) e.getSource());
-                    int x =GridPane.getRowIndex((Node) e.getSource());
-                    onClick(grid, btn, x, y);
-                });
-                btn.setPrefWidth(50);
-                btn.setPrefHeight(50);
-                grid.add(btn, i, o);
-            }
-        }
-        return grid;
-    }
-
-    public void onClick(GridPane grid, Button btn, int x, int y){
-        List<int[]> toShow = getOne(x, y);
-        System.out.println("x: " + x +", y: " + y);
-        btn.setText(Character.toString(board[x][y]));
-
     }
 }
