@@ -1,17 +1,34 @@
 package app.minesweeper;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class GameControler implements Initializable {
-    public AnchorPane root;
+    @FXML
+    public HBox rootBox;
+
+    @FXML
+    private Button leaveButton;
+    private Stage stage;
+    private Scene scene;
+    private Parent rootP;
+
     /* velkost hracej plochy */
     public int size;
     public Logic gamelogic;
@@ -22,7 +39,7 @@ public class GameControler implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         size = 6;
         gamelogic = new Logic(size);
-        root.getChildren().add(getGrid());
+        rootBox.getChildren().add(getGrid());
     }
 
     public GridPane getGrid(){
@@ -30,6 +47,7 @@ public class GameControler implements Initializable {
         grid.setVgap(5);
         grid.setHgap(5);
         grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setAlignment(Pos.CENTER);
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 Button btn = new Button(i + " " + o);
@@ -95,9 +113,23 @@ public class GameControler implements Initializable {
                 newGrid.add(newBtn, o, i);
             }
         }
-
+        newGrid.setAlignment(Pos.CENTER);
         /* nahradenie hracej plochy novou */
-        root.getChildren().remove(0);
-        root.getChildren().add(newGrid);
+        rootBox.getChildren().remove(0);
+        rootBox.getChildren().add(newGrid);
+    }
+
+
+
+    public void handleButtonAction(ActionEvent actionEvent) throws IOException {
+        if(actionEvent.getSource()==leaveButton){
+            Parent rootP = FXMLLoader.load(getClass().getResource("view.fxml"));
+            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(rootP);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.show();
+        }
     }
 }

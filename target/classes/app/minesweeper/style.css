@@ -29,14 +29,21 @@
 }
 
 /* Buttons CSS */
-.button{
-    -fx-background-color: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%);
-    -fx-font-family: "Comic Sans MS";
-    -fx-font-size: 17px;
-    -fx-text-fill: white;
+.Nbutton{
+    -fx-background-color: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%)!important;
+    -fx-text-fill: white!important;
 }
 
-.button:hover {
-    -fx-background-position: right center; /* change the direction of the change here */
-    -fx-text-decoration: none;
+/* Game layout */
+.root{
+    -fx-alignment: center;
+}
+
+.button{
+    /*-fx-background-color: linear-gradient(to right, #095679 0%, #629ef5  50%, #095679  100%);*/
+    /*-fx-text-fill: white;*/
+}
+
+.GridPane{
+
 }

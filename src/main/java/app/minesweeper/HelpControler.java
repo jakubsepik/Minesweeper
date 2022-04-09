@@ -32,8 +32,6 @@ public class HelpControler implements Initializable {
 
     /* handling buttons clicks */
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
-
-        /* open scene with game when startButton is clicked */
         if(actionEvent.getSource()==backButton){
             Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
