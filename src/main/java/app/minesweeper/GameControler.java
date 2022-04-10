@@ -50,7 +50,7 @@ public class GameControler implements Initializable {
         grid.setAlignment(Pos.CENTER);
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
-                Button btn = new Button(i + " " + o);
+                Button btn = new Button();
                 btn.setOnAction(e -> {
                     int y =GridPane.getColumnIndex((Node) e.getSource());
                     int x =GridPane.getRowIndex((Node) e.getSource());
