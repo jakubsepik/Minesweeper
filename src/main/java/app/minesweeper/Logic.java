@@ -68,6 +68,9 @@ public class Logic {
             }else
                 i--;
         }
+        for(char[] tmp:board){
+            System.out.println(Arrays.toString(tmp));
+        }
     }
     public List<int[]> getOne(int x,int y){
         List<int[]> list = new ArrayList<>();
@@ -80,13 +83,13 @@ public class Logic {
         boolean zmena;
         do{
             zmena=false;
-            int size = zeros.size();
-            for(int i=0;i<size;i++){
+            int zero_size = zeros.size();
+            for(int i=0;i<zero_size;i++){
                 int[] tmp = zeros.remove();
                 int xl = tmp[0];
                 int yl = tmp[1];
 
-                if (xl + 1 < size && !list.contains(new int[]{xl+1,yl,board[xl+1][yl]})) {
+                if (xl + 1 < size && !containsXY(list,xl+1,yl)) {
                     list.add(new int[]{xl+1,yl,board[xl+1][yl]});
                     if(board[xl+1][yl]=='0'){
                         zeros.add(new int[]{xl+1,yl});
@@ -94,7 +97,7 @@ public class Logic {
                     }
                 }
 
-                if (xl - 1 > size && !list.contains(new int[]{xl+1,yl,board[xl-1][yl]})) {
+                if (xl - 1 >= 0 && !containsXY(list,xl-1,yl)) {
                     list.add(new int[]{xl-1,yl,board[xl-1][yl]});
                     if(board[xl-1][yl]=='0'){
                         zeros.add(new int[]{xl-1,yl});
@@ -102,7 +105,7 @@ public class Logic {
                     }
                 }
 
-                if (yl + 1 < size && !list.contains(new int[]{xl+1,yl,board[xl][yl+1]} )) {
+                if (yl + 1 < size && !containsXY(list,xl,yl+1)) {
                     list.add(new int[]{xl,yl+1,board[xl][yl+1]});
                     if(board[xl][yl+1]=='0'){
                         zeros.add(new int[]{xl,yl+1});
@@ -110,7 +113,7 @@ public class Logic {
                     }
                 }
 
-                if (yl - 1 < size && !list.contains(new int[]{xl+1,yl,board[xl][yl-1]})) {
+                if (yl - 1 >= 0 && !containsXY(list,xl,yl-1)) {
                     list.add(new int[]{xl,yl-1,board[xl][yl-1]});
                     if(board[xl][yl-1]=='0'){
                         zeros.add(new int[]{xl,yl-1});
@@ -122,6 +125,14 @@ public class Logic {
         }while(zmena);
         zeros.clear();
         return list;
+    }
+
+    private boolean containsXY(List<int[]> list,int x, int y){
+        for(int[] tmp:list){
+            if(tmp[0]==x && tmp[1]==y)
+                return true;
+        }
+        return false;
     }
 
     public boolean addFlag(int x,int y){
@@ -142,6 +153,7 @@ public class Logic {
         return true;
     }
     public char[][] getBoard() {
+
         return board;
     }
 }
