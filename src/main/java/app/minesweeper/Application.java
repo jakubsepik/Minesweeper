@@ -28,6 +28,7 @@ public class Application extends javafx.application.Application {
 
         scene.getStylesheets().add(getClass().getResource("style.css").toString());
         stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
