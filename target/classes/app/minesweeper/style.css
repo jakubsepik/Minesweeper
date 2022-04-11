@@ -38,12 +38,3 @@
 .root{
     -fx-alignment: center;
 }
-
-.button{
-    /*-fx-background-color: linear-gradient(to right, #095679 0%, #629ef5  50%, #095679  100%);*/
-    /*-fx-text-fill: white;*/
-}
-
-.GridPane{
-
-}

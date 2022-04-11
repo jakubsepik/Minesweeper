@@ -1,5 +1,8 @@
 package app.minesweeper;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,11 +12,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.tools.Borders;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +35,11 @@ public class GameControler implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent rootP;
+    private static final Integer STARTTIME = 0;
+    private Timeline timeline;
+    @FXML
+    private Label counter;
+    private Integer timeSeconds = STARTTIME;
 
     /* velkost hracej plochy */
     public int size;
@@ -40,12 +52,39 @@ public class GameControler implements Initializable {
         size = 6;
         gamelogic = new Logic(size);
         rootBox.getChildren().add(getGrid());
+
+        counter.setText(timeSeconds.toString());
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeSeconds = STARTTIME;
+
+        // update timerLabel
+        counter.setText(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
+        counter.setStyle(
+                "-fx-font-size: 16;" +
+                "-fx-text-fill: #fff"
+        );
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        timeSeconds++;
+                        // update timerLabel
+                        counter.setText(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
+                        if (timeSeconds >= 3600) {
+                            timeline.stop();
+                        }
+                    }
+                }));
+
+        timeline.playFromStart();
     }
 
     public GridPane getGrid(){
         GridPane grid = new GridPane();
-        grid.setVgap(5);
-        grid.setHgap(5);
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setAlignment(Pos.CENTER);
         for(int i=0;i<size;i++){
@@ -60,8 +99,8 @@ public class GameControler implements Initializable {
                     /* update hracej plochy */
                     updateGrid(grid, x, y);
                 });
-                btn.setPrefWidth(50);
                 btn.setPrefHeight(50);
+                btn.setPrefWidth(50);
                 grid.add(btn, i, o);
             }
         }
@@ -70,14 +109,7 @@ public class GameControler implements Initializable {
 
     public void updateGrid(GridPane grid, int x, int y){
         List<int[]> toShow = gamelogic.getOne(x, y);
-        for (int [] in: toShow){
-            System.out.println(Arrays.toString(in));
-        }
-
-
         GridPane newGrid = new GridPane();
-        newGrid.setVgap(5);
-        newGrid.setHgap(5);
         newGrid.setPadding(new Insets(10, 10, 10, 10));
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
@@ -95,7 +127,36 @@ public class GameControler implements Initializable {
                 /* zobrazenie vsetkych policok, ktore maju byt zobrazene */
                 for (int [] cell: showed){
                     if (cell[0] == i && cell[1] == o){
-                        newBtn = new Button(Character.toString(gamelogic.getBoard()[i][o]));
+                        if (gamelogic.getBoard()[i][o] == '0'){
+                            newBtn = new Button();
+                            newBtn.setStyle(
+                                    "-fx-background-color: rgba(153,153,153,0.05);"
+                                    );
+                        } else {
+                            newBtn = new Button(Character.toString(gamelogic.getBoard()[i][o]));
+                        }
+
+                        if (gamelogic.getBoard()[i][o] == '1'){
+                            newBtn.setStyle(
+                                    "-fx-text-fill: blue;" +
+                                    "-fx-font-weight: bold;" +
+                                    "-fx-background-color: rgba(153,153,153,0.05);"
+                            );
+                        }
+                        if (gamelogic.getBoard()[i][o] == '2'){
+                            newBtn.setStyle(
+                                    "-fx-text-fill: green;" +
+                                    "-fx-font-weight: bold;" +
+                                    "-fx-background-color: rgba(153,153,153,0.05);"
+                            );
+                        }
+                        if (gamelogic.getBoard()[i][o] == '3'){
+                            newBtn.setStyle(
+                                    "-fx-text-fill: red;" +
+                                    "-fx-font-weight: bold;" +
+                                    "-fx-background-color: rgba(153,153,153,0.05);"
+                            );
+                        }
                     }
                 }
 
