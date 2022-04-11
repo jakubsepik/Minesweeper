@@ -105,7 +105,6 @@ public class Logic {
                 }
             }
         } while (zeros.size() != 0);
-        zeros.clear();
         return list;
     }
 
