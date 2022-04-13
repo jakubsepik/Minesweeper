@@ -80,8 +80,14 @@
                <Line endX="110.0" layoutX="160.0" layoutY="110.0" startX="-108.800048828125" stroke="#d97816" strokeWidth="3.0" AnchorPane.topAnchor="100.0" />
            </children>
        </AnchorPane>
-      <HBox fx:id="rootBox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
          <children>
-         </children></HBox>
+            <BorderPane fx:id="rootBox" prefHeight="1030.0" prefWidth="1370.0">
+               <center>
+
+               </center>
+            </BorderPane>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -1,6 +1,8 @@
 package app.minesweeper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,7 +30,7 @@ import java.util.*;
 
 public class GameControler implements Initializable {
     @FXML
-    public HBox rootBox;
+    public BorderPane rootBox;
 
     @FXML
     private Button leaveButton;
@@ -43,15 +45,16 @@ public class GameControler implements Initializable {
 
     /* velkost hracej plochy */
     public int size;
+    private double x, y;
     public Logic gamelogic;
-    /* list s poliami kde su suradnice uz zobrazenych policok */
+    /* list s poliami kde su suradnice  uz zobrazenych policok */
     public Set<int[]> showed = new HashSet<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        size = 6;
+        size = 15;
         gamelogic = new Logic(size);
-        rootBox.getChildren().add(getGrid());
+        rootBox.setCenter(getGrid());
 
         counter.setText(timeSeconds.toString());
         if (timeline != null) {
@@ -99,8 +102,8 @@ public class GameControler implements Initializable {
                     /* update hracej plochy */
                     updateGrid(grid, x, y);
                 });
-                btn.setPrefHeight(50);
-                btn.setPrefWidth(50);
+                btn.setPrefHeight(35);
+                btn.setPrefWidth(35);
                 grid.add(btn, i, o);
             }
         }
@@ -176,18 +179,16 @@ public class GameControler implements Initializable {
                     /* update hracej plochy */
                     updateGrid(newGrid, newX, newY);
                 });
-                newBtn.setPrefWidth(50);
-                newBtn.setPrefHeight(50);
+                newBtn.setPrefWidth(35);
+                newBtn.setPrefHeight(35);
                 newGrid.add(newBtn, o, i);
             }
         }
-        newGrid.setAlignment(Pos.CENTER);
         /* nahradenie hracej plochy novou */
         rootBox.getChildren().remove(0);
-        rootBox.getChildren().add(newGrid);
+        rootBox.setCenter(newGrid);
+        newGrid.setAlignment(Pos.CENTER);
     }
-
-
 
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==leaveButton){
