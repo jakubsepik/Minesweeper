@@ -157,6 +157,13 @@ public class GameControler implements Initializable {
                                     "-fx-background-color: rgba(153,153,153,0.05);"
                             );
                         }
+                        if (gamelogic.getBoard()[i][o] == '4'){
+                            newBtn.setStyle(
+                                    "-fx-text-fill: purple;" +
+                                            "-fx-font-weight: bold;" +
+                                            "-fx-background-color: rgba(153,153,153,0.05);"
+                            );
+                        }
                     }
                 }
 
