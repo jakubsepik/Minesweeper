@@ -38,3 +38,7 @@
 .root{
     -fx-alignment: center;
 }
+
+.helpPanel{
+    -fx-background-color: #d9d9d9;
+}

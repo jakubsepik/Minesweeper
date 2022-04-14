@@ -64,10 +64,6 @@ public class GameControler implements Initializable {
 
         // update timerLabel
         counter.setText(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
-        counter.setStyle(
-                "-fx-font-size: 16;" +
-                "-fx-text-fill: #fff"
-        );
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(

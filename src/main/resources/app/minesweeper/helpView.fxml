@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -10,29 +9,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.HelpControler">
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-   <bottom>
-      <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" styleClass="Nbutton" text="Back" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-   </bottom>
-   <left>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+<AnchorPane fx:id="helpPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1920.0" styleClass="helpPanel" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.HelpControler">
+   <children>
+      <ImageView layoutX="580.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="525.0" AnchorPane.rightAnchor="525.0" AnchorPane.topAnchor="15.0">
+         <image>
+            <Image url="@helpTop.png" />
+         </image>
+      </ImageView>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="980.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
          <children>
-            <ImageView layoutX="111.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="25.0">
+            <ImageView fitHeight="95.0" fitWidth="200.0" layoutX="380.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="20.0">
                <image>
                   <Image url="@about.png" />
                </image>
-               <viewport>
-                  <Rectangle2D height="200.0" />
-               </viewport>
             </ImageView>
-            <Label alignment="TOP_LEFT" layoutY="195.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+            <Label fx:id="help1" alignment="TOP_LEFT" layoutX="14.0" layoutY="201.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font name="Monospaced Bold" size="25.0" />
                </font>
@@ -42,16 +33,14 @@
             </Label>
          </children>
       </AnchorPane>
-   </left>
-   <right>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="980.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
          <children>
-            <ImageView layoutX="165.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="25.0">
+            <ImageView fitHeight="200.0" fitWidth="350.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@help.png" />
+                  <Image url="@game.png" />
                </image>
             </ImageView>
-            <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="201.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+            <Label fx:id="help2" alignment="TOP_LEFT" layoutY="195.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font name="Monospaced Bold" size="25.0" />
                </font>
@@ -61,5 +50,10 @@
             </Label>
          </children>
       </AnchorPane>
-   </right>
-</BorderPane>
+      <Button fx:id="backButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="80.0" styleClass="Nbutton" text="GO BACK TO MENU" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+         <font>
+            <Font name="Monospaced Bold" size="25.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

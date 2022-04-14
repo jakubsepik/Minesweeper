@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,12 +24,17 @@ public class HelpControler implements Initializable {
 
     @FXML
     private Button backButton;
+    @FXML
+    private Label help1 , help2;
+    @FXML
+    private AnchorPane helpPanel;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        help1.setText("Welcome to a Minesweeper\nThis is a test");
+        help2.setText("Welcome to a Minesweeper\nThis is a test");
     }
 
     /* handling buttons clicks */
