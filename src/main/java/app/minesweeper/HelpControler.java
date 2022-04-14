@@ -34,7 +34,11 @@ public class HelpControler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         help1.setText("Welcome to a Minesweeper\nThis is a test");
-        help2.setText("Welcome to a Minesweeper\nThis is a test");
+        help2.setText("In this game your duty is to *click on the game grid and not hit a mine\n" +
+                " *Left click - use to reveal box\n Right click - you will place \uD83D\uDEA9 " +
+                "(use this as indicator where you think the mine is located)\n\n" +
+                "If you click on the box and it is not a mine, a number will appear in it's place (this number" +
+                " indicate number of mines in it's proximity ( 1 box to every side))");
     }
 
     /* handling buttons clicks */

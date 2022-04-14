@@ -18,7 +18,7 @@
       </ImageView>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="980.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
          <children>
-            <ImageView fitHeight="95.0" fitWidth="200.0" layoutX="392.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="388.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="95.0" fitWidth="200.0" layoutX="380.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="20.0">
                <image>
                   <Image url="@about.png" />
                </image>
@@ -35,7 +35,7 @@
       </AnchorPane>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="980.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
          <children>
-            <ImageView fitHeight="200.0" fitWidth="350.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="200.0" fitWidth="350.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@game.png" />
                </image>
@@ -50,7 +50,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="backButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="80.0" styleClass="Nbutton" text="GO BACK TO MENU" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
+      <Button fx:id="backButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="80.0" styleClass="Nbutton" text="GO BACK TO MENU" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
          <font>
             <Font name="Monospaced Bold" size="25.0" />
          </font>
