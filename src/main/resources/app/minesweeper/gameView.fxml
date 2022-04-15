@@ -41,7 +41,7 @@
                    </font>
                </Label>
                <Line endX="110.0" layoutX="150.0" layoutY="101.0" startX="-110.0" stroke="#d97816" strokeWidth="3.0" />
-            <Label alignment="TOP_CENTER" layoutX="145.0" layoutY="134.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="200.0" text="Label" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
+            <Label alignment="TOP_CENTER" layoutX="145.0" layoutY="134.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="200.0" text="Time" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
                <font>
                   <Font name="Monospaced Bold" size="25.0" />
                </font>
@@ -76,12 +76,12 @@
                        </LinearGradient>
                    </fill>
                </Rectangle>
-               <Label layoutX="69.0" layoutY="31.0" text="May be added in future" textFill="WHITE" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="50.0">
+               <Label layoutX="69.0" layoutY="31.0" text="SCOREBOARD" textFill="WHITE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
                    <font>
-                       <Font name="Monospaced Bold" size="15.0" />
+                       <Font name="System Bold" size="35.0" />
                    </font>
                </Label>
-               <Line endX="110.0" layoutX="160.0" layoutY="110.0" startX="-108.800048828125" stroke="#d97816" strokeWidth="3.0" AnchorPane.topAnchor="100.0" />
+               <Line endX="135.0" layoutX="145.0" layoutY="110.0" startX="-115.0" stroke="#d97816" strokeWidth="3.0" AnchorPane.topAnchor="100.0" />
            </children>
        </AnchorPane>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
@@ -91,7 +91,7 @@
 
                </center>
                <top>
-                  <Label fx:id="counter" text="Mirek je gay" BorderPane.alignment="CENTER">
+                  <Label fx:id="counter" text="Timer" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets top="25.0" />
                      </BorderPane.margin>
