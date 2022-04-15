@@ -42,3 +42,49 @@
 .helpPanel{
     -fx-background-color: #d9d9d9;
 }
+
+.grid{
+    -fx-label-padding: 10 10 10 10;
+    -fx-alignment: center;
+}
+.grid-btn{
+    -fx-pref-width: 35;
+    -fx-pref-height: 35;
+    -fx-font-weight: bold;
+}
+
+.zero-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+}
+.one-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: blue;
+}
+.two-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: green;
+}
+.three-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: red;
+}
+.four-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: darkblue;
+}
+.five-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: darkred;
+}
+.six-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: darkcyan;
+}
+.seven-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: black;
+}
+.eight-btn{
+    -fx-background-color:  rgba(153,153,153,0.05);
+    -fx-text-fill: gray;
+}

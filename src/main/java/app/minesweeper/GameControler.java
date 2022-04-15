@@ -98,74 +98,22 @@ public class GameControler implements Initializable {
                     /* update hracej plochy */
                     updateGrid(grid, x, y);
                 });
-                btn.setPrefHeight(35);
-                btn.setPrefWidth(35);
+                btn.getStyleClass().add("grid-btn");
                 grid.add(btn, i, o);
             }
         }
+        grid.getStyleClass().add("grid");
         return grid;
     }
 
     public void updateGrid(GridPane grid, int x, int y){
-        List<int[]> toShow = gamelogic.getOne(x, y);
         GridPane newGrid = new GridPane();
-        newGrid.setPadding(new Insets(10, 10, 10, 10));
+        showed.addAll(gamelogic.getOne(x, y));
+        newGrid.getStyleClass().add("grid");
+
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
-                Button newBtn = new Button();
-
-                /* zobrazenie policok ktore vrati metoda getOne */
-                for (int t = 0; t < toShow.size(); t++){
-                    if (toShow.get(t)[0] == i && toShow.get(t)[1] == o){
-                        newBtn = new Button(Character.toString(gamelogic.getBoard()[i][o]));
-                        int [] cell = {i, o};
-                        showed.add(cell);
-                    }
-                }
-
-                /* zobrazenie vsetkych policok, ktore maju byt zobrazene */
-                for (int [] cell: showed){
-                    if (cell[0] == i && cell[1] == o){
-                        if (gamelogic.getBoard()[i][o] == '0'){
-                            newBtn = new Button();
-                            newBtn.setStyle(
-                                    "-fx-background-color: rgba(153,153,153,0.05);"
-                                    );
-                        } else {
-                            newBtn = new Button(Character.toString(gamelogic.getBoard()[i][o]));
-                        }
-
-                        if (gamelogic.getBoard()[i][o] == '1'){
-                            newBtn.setStyle(
-                                    "-fx-text-fill: blue;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-background-color: rgba(153,153,153,0.05);"
-                            );
-                        }
-                        if (gamelogic.getBoard()[i][o] == '2'){
-                            newBtn.setStyle(
-                                    "-fx-text-fill: green;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-background-color: rgba(153,153,153,0.05);"
-                            );
-                        }
-                        if (gamelogic.getBoard()[i][o] == '3'){
-                            newBtn.setStyle(
-                                    "-fx-text-fill: red;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-background-color: rgba(153,153,153,0.05);"
-                            );
-                        }
-                        if (gamelogic.getBoard()[i][o] == '4'){
-                            newBtn.setStyle(
-                                    "-fx-text-fill: purple;" +
-                                            "-fx-font-weight: bold;" +
-                                            "-fx-background-color: rgba(153,153,153,0.05);"
-                            );
-                        }
-                    }
-                }
-
+                Button newBtn = showBtn(grid, i, o);
                 newBtn.setOnAction(e -> {
                     int newY =GridPane.getColumnIndex((Node) e.getSource());
                     int newX =GridPane.getRowIndex((Node) e.getSource());
@@ -175,16 +123,55 @@ public class GameControler implements Initializable {
                     /* update hracej plochy */
                     updateGrid(newGrid, newX, newY);
                 });
-                newBtn.setPrefWidth(35);
-                newBtn.setPrefHeight(35);
+                newBtn.getStyleClass().add("grid-btn");
                 newGrid.add(newBtn, o, i);
             }
         }
         /* nahradenie hracej plochy novou */
-        rootBox.getChildren().remove(0);
+        newGrid.getStyleClass().add("grid");
         rootBox.setCenter(newGrid);
-        newGrid.setAlignment(Pos.CENTER);
     }
+
+    public Button showBtn(GridPane grid, int x, int y) {
+        Button newBtn = new Button();
+        for (int[] cell : showed) {
+            if (cell[0] == x && cell[1] == y) {
+                if (gamelogic.getBoard()[x][y] == '0') {
+                    newBtn = new Button();
+                    newBtn.getStyleClass().add("zero-btn");
+                } else {
+                    newBtn = new Button(Character.toString(gamelogic.getBoard()[x][y]));
+                }
+
+                if (gamelogic.getBoard()[x][y] == '1') {
+                    newBtn.getStyleClass().add("one-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '2') {
+                    newBtn.getStyleClass().add("two-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '3') {
+                    newBtn.getStyleClass().add("three-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '4') {
+                    newBtn.getStyleClass().add("four-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '5') {
+                    newBtn.getStyleClass().add("five-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '6') {
+                    newBtn.getStyleClass().add("six-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '7') {
+                    newBtn.getStyleClass().add("seven-btn");
+                }
+                if (gamelogic.getBoard()[x][y] == '8') {
+                    newBtn.getStyleClass().add("eight-btn");
+                }
+            }
+        }
+        return newBtn;
+    }
+
 
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==leaveButton){
