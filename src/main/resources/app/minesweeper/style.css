@@ -88,3 +88,7 @@
     -fx-background-color:  rgba(153,153,153,0.05);
     -fx-text-fill: gray;
 }
+.mine-btn{
+    -fx-background-color:  red;
+    -fx-text-fill: black;
+}
