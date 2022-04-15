@@ -48,7 +48,7 @@
             </Label>
             <Button fx:id="leaveButton" layoutX="60.0" layoutY="980.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" styleClass="Nbutton" text="LEAVE" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
                <font>
-                  <Font name="Monospaced Bold" size="25.0" />
+                  <Font name="Dubai Bold" size="25.0" />
                </font>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -96,7 +96,7 @@
                         <Insets top="25.0" />
                      </BorderPane.margin>
                      <font>
-                        <Font name="Monospaced Bold" size="25.0" />
+                        <Font name="Dubai Bold" size="35.0" />
                      </font>
                   </Label>
                </top>

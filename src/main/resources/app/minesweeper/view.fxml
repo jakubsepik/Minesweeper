@@ -36,15 +36,15 @@
       </ImageView>
       <Button fx:id="startButton" layoutX="416.0" layoutY="220.0" minHeight="60.0" minWidth="350.0" mnemonicParsing="false" onAction="#handleButtonAction" styleClass="Nbutton" text="Start" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="200.0">
          <font>
-            <Font name="Monospaced Bold" size="25.0" />
+            <Font name="Dubai Bold" size="25.0" />
          </font></Button>
       <Button fx:id="helpButton" layoutX="395.0" layoutY="377.0" minHeight="60.0" minWidth="350.0" mnemonicParsing="false" onAction="#handleButtonAction" styleClass="Nbutton" text="Help" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="290.0">
          <font>
-            <Font name="Monospaced Bold" size="25.0" />
+            <Font name="Dubai Bold" size="25.0" />
          </font></Button>
       <Button fx:id="exitButton" layoutX="410.0" layoutY="441.0" minHeight="60.0" minWidth="350.0" mnemonicParsing="false" onAction="#handleButtonAction" styleClass="Nbutton" text="Exit" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="380.0">
          <font>
-            <Font name="Monospaced Bold" size="25.0" />
+            <Font name="Dubai Bold" size="25.0" />
          </font></Button>
    </children>
 </AnchorPane>
