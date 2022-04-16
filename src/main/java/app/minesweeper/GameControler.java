@@ -31,9 +31,8 @@ import java.util.*;
 public class GameControler implements Initializable {
     @FXML
     public BorderPane rootBox;
-
     @FXML
-    private Button leaveButton;
+    private Button leaveButton, resetGame;
     private Stage stage;
     private Scene scene;
     private Parent rootP;
@@ -44,11 +43,12 @@ public class GameControler implements Initializable {
     private Integer timeSeconds = STARTTIME;
 
     /* velkost hracej plochy */
-    public int size;
+    private int size;
     private double x, y;
-    public Logic gamelogic;
+    private boolean win = true;
+    private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
-    public Set<int[]> showed = new HashSet<>();
+    private Set<int[]> showed = new HashSet<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,20 +84,27 @@ public class GameControler implements Initializable {
 
     public GridPane getGrid(){
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setAlignment(Pos.CENTER);
+        grid.getStyleClass().add("grid");
+
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 Button btn = new Button();
                 btn.setOnAction(e -> {
                     int y =GridPane.getColumnIndex((Node) e.getSource());
                     int x =GridPane.getRowIndex((Node) e.getSource());
-                    /* pridanie zobrazeneho policka do listu */
                     int [] cell = {x, y};
                     showed.add(cell);
-                    /* update hracej plochy */
+
+                    /* kontrola ci nebola trafena mina */
+                    if (gamelogic.getBoard()[x][y] == 'X'){
+                        win = false;
+                        getMines();
+                        timeline.stop();
+                    }
+                    /* update gridu po kliknuti na tlacidlo */
                     updateGrid(grid, x, y);
                 });
+
                 btn.getStyleClass().add("grid-btn");
                 grid.add(btn, i, o);
             }
@@ -114,24 +121,34 @@ public class GameControler implements Initializable {
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 Button newBtn = showBtn(grid, i, o);
-                newBtn.setOnAction(e -> {
-                    int newY =GridPane.getColumnIndex((Node) e.getSource());
-                    int newX =GridPane.getRowIndex((Node) e.getSource());
-                    /* pridanie zobrazeneho policka do listu */
-                    int [] cell = {x, y};
-                    showed.add(cell);
-                    /* update hracej plochy */
-                    updateGrid(newGrid, newX, newY);
-                });
+                /* ak nebola trafna mina tak sa updatne grid aj s action na tlacidlach */
+                if (win) {
+                    newBtn.setOnAction(e -> {
+                        int newY =GridPane.getColumnIndex((Node) e.getSource());
+                        int newX =GridPane.getRowIndex((Node) e.getSource());
+                        int [] cell = {newX, newY};
+                        showed.add(cell);
+
+                        /* kontrola ci nebola stlacena mina */
+                        if (gamelogic.getBoard()[newX][newY] == 'X'){
+                            System.out.println("mina");
+                            win = false;
+                            getMines();
+                            timeline.stop();
+                        }
+                        /* update gridu po stlaceni na tlacidlo */
+                        updateGrid(newGrid, newX, newY);
+                    });
+                }
                 newBtn.getStyleClass().add("grid-btn");
                 newGrid.add(newBtn, o, i);
             }
         }
-        /* nahradenie hracej plochy novou */
         newGrid.getStyleClass().add("grid");
         rootBox.setCenter(newGrid);
     }
 
+    /* zobrazenie obsahu tlacidla po stlaceni */
     public Button showBtn(GridPane grid, int x, int y) {
         Button newBtn = new Button();
         for (int[] cell : showed) {
@@ -167,17 +184,40 @@ public class GameControler implements Initializable {
                 if (gamelogic.getBoard()[x][y] == '8') {
                     newBtn.getStyleClass().add("eight-btn");
                 }
+                if (gamelogic.getBoard()[x][y] == 'X') {
+                    newBtn.getStyleClass().add("mine-btn");
+                }
             }
         }
         return newBtn;
     }
 
+    /* ziskanie pozicii min */
+    public void getMines(){
+        for(int i=0;i<size;i++){
+            for(int o=0;o<size;o++){
+                if (gamelogic.getBoard()[i][o] == 'X'){
+                    int [] cell = {i, o};
+                    showed.add(cell);
+                }
+            }
+        }
+    }
 
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==leaveButton){
             Parent rootP = FXMLLoader.load(getClass().getResource("view.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(rootP);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.show();
+        }
+        if(actionEvent.getSource()==resetGame){
+            Parent root = FXMLLoader.load(getClass().getResource("gameView.fxml"));
+            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("style.css").toString());
             stage.setScene(scene);
             stage.setFullScreen(true);
