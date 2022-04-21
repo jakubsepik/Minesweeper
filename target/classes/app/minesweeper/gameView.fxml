@@ -41,9 +41,9 @@
                    </font>
                </Label>
                <Line endX="110.0" layoutX="150.0" layoutY="101.0" startX="-110.0" stroke="#d97816" strokeWidth="3.0" />
-            <Label alignment="TOP_CENTER" layoutX="145.0" layoutY="134.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="200.0" text="Time" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
+            <Label alignment="TOP_CENTER" layoutX="145.0" layoutY="134.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="200.0" text="In development" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
                <font>
-                  <Font name="Monospaced Bold" size="25.0" />
+                  <Font name="Dubai Bold" size="25.0" />
                </font>
             </Label>
             <Button fx:id="leaveButton" layoutX="60.0" layoutY="980.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" styleClass="Nbutton" text="LEAVE" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
@@ -91,9 +91,9 @@
 
                </center>
                <bottom>
-                  <Button fx:id="resetGame" mnemonicParsing="false" onAction="#handleButtonAction" text="Button" BorderPane.alignment="CENTER">
+                  <Button fx:id="resetGame" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" text="RESET" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
                       <font>
-                          <Font name="Monospaced Bold" size="25.0" />
+                          <Font name="Dubai Bold" size="25.0" />
                       </font>
                       <padding>
                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

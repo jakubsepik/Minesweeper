@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ImageInput;
@@ -60,6 +61,10 @@ public class GameControler implements Initializable {
         size = 15;
         gamelogic = new Logic(size);
         rootBox.setCenter(getGrid());
+        time();
+    }
+
+    public void time(){
         counter.setText(timeSeconds.toString());
         if (timeline != null) {
             timeline.stop();
@@ -162,6 +167,8 @@ public class GameControler implements Initializable {
                 if (gamelogic.getBoard()[x][y] == '0') {
                     newBtn = new Button();
                     newBtn.getStyleClass().add("zero-btn");
+                } else if (gamelogic.getBoard()[x][y] == 'X') {
+                    newBtn = new Button("\uD83D\uDCA3");
                 } else {
                     newBtn = new Button(Character.toString(gamelogic.getBoard()[x][y]));
                 }
@@ -221,13 +228,12 @@ public class GameControler implements Initializable {
             stage.show();
         }
         if(actionEvent.getSource()==resetGame){
-            Parent root = FXMLLoader.load(getClass().getResource("gameView.fxml"));
-            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("style.css").toString());
-            stage.setScene(scene);
-            stage.setFullScreen(true);
-            stage.show();
+            showed.clear();
+            win = true;
+            size = 15;
+            gamelogic = new Logic(size);
+            rootBox.setCenter(getGrid());
+            time();
         }
     }
 }
