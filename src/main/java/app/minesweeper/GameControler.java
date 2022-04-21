@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -100,20 +101,25 @@ public class GameControler implements Initializable {
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 Button btn = new Button();
-                btn.setOnAction(e -> {
+                btn.setOnMouseClicked(e -> {
                     int y =GridPane.getColumnIndex((Node) e.getSource());
                     int x =GridPane.getRowIndex((Node) e.getSource());
-                    int [] cell = {x, y};
-                    showed.add(cell);
 
-                    /* kontrola ci nebola trafena mina */
-                    if (gamelogic.getBoard()[x][y] == 'X'){
-                        win = false;
-                        getMines();
-                        timeline.stop();
+                    if (e.getButton() == MouseButton.PRIMARY){
+                        int [] cell = {x, y};
+                        showed.add(cell);
+
+                        /* kontrola ci nebola trafena mina */
+                        if (gamelogic.getBoard()[x][y] == 'X'){
+                            win = false;
+                            getMines();
+                            timeline.stop();
+                        }
+                        /* update gridu po kliknuti na tlacidlo */
+                        updateGrid(grid, x, y);
+                    } else if (e.getButton() == MouseButton.SECONDARY){
+                        btn.setText("\uD83D\uDEA9");
                     }
-                    /* update gridu po kliknuti na tlacidlo */
-                    updateGrid(grid, x, y);
                 });
 
                 btn.getStyleClass().add("grid-btn");
@@ -134,21 +140,26 @@ public class GameControler implements Initializable {
                 Button newBtn = showBtn(grid, i, o);
                 /* ak nebola trafna mina tak sa updatne grid aj s action na tlacidlach */
                 if (win) {
-                    newBtn.setOnAction(e -> {
+                    newBtn.setOnMouseClicked(e -> {
                         int newY =GridPane.getColumnIndex((Node) e.getSource());
                         int newX =GridPane.getRowIndex((Node) e.getSource());
-                        int [] cell = {newX, newY};
-                        showed.add(cell);
 
-                        /* kontrola ci nebola stlacena mina */
-                        if (gamelogic.getBoard()[newX][newY] == 'X'){
-                            System.out.println("mina");
-                            win = false;
-                            getMines();
-                            timeline.stop();
+                        if (e.getButton() == MouseButton.PRIMARY){
+                            int [] cell = {newX, newY};
+                            showed.add(cell);
+
+                            /* kontrola ci nebola stlacena mina */
+                            if (gamelogic.getBoard()[newX][newY] == 'X'){
+                                System.out.println("mina");
+                                win = false;
+                                getMines();
+                                timeline.stop();
+                            }
+                            /* update gridu po stlaceni na tlacidlo */
+                            updateGrid(newGrid, newX, newY);
+                        } else if (e.getButton() == MouseButton.SECONDARY){
+                            newBtn.setText("\uD83D\uDEA9");
                         }
-                        /* update gridu po stlaceni na tlacidlo */
-                        updateGrid(newGrid, newX, newY);
                     });
                 }
                 newBtn.getStyleClass().add("grid-btn");
