@@ -9,6 +9,14 @@ public class Logic {
     private final char[][] board;
     Random rn = new Random();
 
+    public int getMines() {
+        return mines;
+    }
+
+    public int getFlagsSize() {
+        return flags.size();
+    }
+
     public Logic(int size) {
         this.size = size;
         this.flags = new ArrayList<>();
@@ -19,7 +27,7 @@ public class Logic {
             board[i] = tmp;
         }
 
-        mines = size * size / 5;
+        this.mines = size * size / 5;
 
         for (byte i = 0; i < mines; i++) {
             int x = rn.nextInt(size);

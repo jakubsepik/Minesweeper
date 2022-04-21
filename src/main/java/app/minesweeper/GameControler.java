@@ -50,12 +50,16 @@ public class GameControler implements Initializable {
     /* list s poliami kde su suradnice  uz zobrazenych policok */
     private Set<int[]> showed = new HashSet<>();
 
+    @FXML
+    private Label flags;
+    @FXML
+    private Label mines;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         size = 15;
         gamelogic = new Logic(size);
         rootBox.setCenter(getGrid());
-
         counter.setText(timeSeconds.toString());
         if (timeline != null) {
             timeline.stop();
@@ -80,6 +84,8 @@ public class GameControler implements Initializable {
                 }));
 
         timeline.playFromStart();
+        mines.setText("Počet mín: "+ gamelogic.getMines());
+        flags.setText("Počet vlajok: "+ gamelogic.getFlagsSize());
     }
 
     public GridPane getGrid(){
