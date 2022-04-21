@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.tools.Borders;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -56,11 +56,15 @@ public class GameControler implements Initializable {
     @FXML
     private Label mines;
 
+    private BufferedReader br;
+    private BufferedWriter bw;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         size = 15;
         gamelogic = new Logic(size);
         rootBox.setCenter(getGrid());
+//        file();
         time();
     }
 
@@ -84,6 +88,7 @@ public class GameControler implements Initializable {
                         counter.setText(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
                         if (timeSeconds >= 3600) {
                             timeline.stop();
+//                            saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
                         }
                     }
                 }));
@@ -92,6 +97,35 @@ public class GameControler implements Initializable {
         mines.setText("Počet mín: "+ gamelogic.getMines());
         flags.setText("Počet vlajok: "+ gamelogic.getFlagsSize());
     }
+
+//    public void file(){
+//        File f = new File("scr/currentBestTime.txt");
+//        if(!f.exists() || f.isDirectory()) {
+//            try {
+//                System.out.println("File created");
+//                f.createNewFile();
+//            } catch (IOException e) {
+//                System.out.println("Problem s file");
+//            }
+//        }
+//        try {
+//            br = new BufferedReader(new FileReader(f));
+//            bw = new BufferedWriter(new FileWriter(f,true));
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Problem s buffer readerom");
+//        } catch (IOException e) {
+//            System.out.println("Problem s buffer writerom");
+//        }
+//        saveTime("Ahoj");
+//    }
+//
+//    public void saveTime(String a){
+//        try {
+//            bw.write("Ahoj");
+//        } catch (IOException e) {
+//            System.out.println("Problem so zapisom");
+//        }
+//    }
 
     public GridPane getGrid(){
         GridPane grid = new GridPane();
