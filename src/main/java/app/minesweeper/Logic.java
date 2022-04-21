@@ -27,11 +27,16 @@ public class Logic {
             board[i] = tmp;
         }
 
-        this.mines = size * size / 5;
+        this.mines = (int) (size * size / 6.4);
+        System.out.println(mines);
 
         for (byte i = 0; i < mines; i++) {
             int x = rn.nextInt(size);
             int y = rn.nextInt(size);
+            if (x == 0 && y == 0 || x == 0 && y == size - 1 || x == size - 1 && y == 0 || x == size - 1 && y == size - 1) {
+                i--;
+                continue;
+            }
             if (board[x][y] != 'X') {
                 board[x][y] = 'X';
 
