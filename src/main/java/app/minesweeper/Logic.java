@@ -98,6 +98,32 @@ public class Logic {
                         zeros.add(new int[]{xl + 1, yl});
                     }
                 }
+
+                if (xl + 1 < size && yl + 1 < size && notContainsXY(list, xl + 1, yl + 1)) {
+                    list.add(new int[]{xl + 1, yl + 1, board[xl + 1][yl + 1]});
+                    if (board[xl + 1][yl + 1] == '0') {
+                        zeros.add(new int[]{xl + 1, yl + 1});
+                    }
+                }
+                if (xl + 1 < size && yl - 1 >= 0 && notContainsXY(list, xl + 1, yl - 1)) {
+                    list.add(new int[]{xl + 1, yl - 1, board[xl + 1][yl - 1]});
+                    if (board[xl + 1][yl - 1] == '0') {
+                        zeros.add(new int[]{xl + 1, yl - 1});
+                    }
+                }
+                if (xl - 1 >= 0 && yl + 1 < size && notContainsXY(list, xl - 1, yl + 1)) {
+                    list.add(new int[]{xl - 1, yl + 1, board[xl - 1][yl + 1]});
+                    if (board[xl - 1][yl + 1] == '0') {
+                        zeros.add(new int[]{xl - 1, yl + 1});
+                    }
+                }
+                if (xl - 1 >= 0 && yl - 1 >= 0 && notContainsXY(list, xl - 1, yl - 1)) {
+                    list.add(new int[]{xl - 1, yl - 1, board[xl - 1][yl - 1]});
+                    if (board[xl - 1][yl - 1] == '0') {
+                        zeros.add(new int[]{xl - 1, yl - 1});
+                    }
+                }
+
                 if (xl - 1 >= 0 && notContainsXY(list, xl - 1, yl)) {
                     list.add(new int[]{xl - 1, yl, board[xl - 1][yl]});
                     if (board[xl - 1][yl] == '0') {
