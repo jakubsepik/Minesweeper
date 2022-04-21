@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
+<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
    <children>
        <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
            <children>
@@ -112,14 +112,14 @@
                      <left>
                         <Label fx:id="flags" alignment="CENTER" prefHeight="117.0" prefWidth="400.0" text="Label" BorderPane.alignment="CENTER">
                            <font>
-                              <Font name="Dubai Regular" size="28.0" />
+                              <Font size="28.0" />
                            </font>
                         </Label>
                      </left>
                      <right>
                         <Label fx:id="mines" alignment="CENTER" prefHeight="117.0" prefWidth="400.0" text="Label" BorderPane.alignment="CENTER">
                            <font>
-                              <Font name="Dubai Regular" size="28.0" />
+                              <Font size="28.0" />
                            </font>
                         </Label>
                      </right>
