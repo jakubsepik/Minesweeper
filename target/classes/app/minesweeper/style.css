@@ -51,6 +51,9 @@
     -fx-pref-width: 35;
     -fx-pref-height: 35;
     -fx-font-weight: bold;
+    -fx-background-radius: 0;
+    -fx-border-color: rgba(0, 0, 0, 0.15);
+    -fx-border-width: 0.5px;
 }
 
 .zero-btn{
@@ -89,6 +92,6 @@
     -fx-text-fill: gray;
 }
 .mine-btn{
-    -fx-background-color:  red;
+    -fx-background-color: rgba(255, 0, 0, 0.5);
     -fx-text-fill: black;
 }
