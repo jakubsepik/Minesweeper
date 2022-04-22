@@ -58,13 +58,21 @@ public class GameControler implements Initializable {
 
     private BufferedReader br;
     private BufferedWriter bw;
+    @FXML
+    private Label time;
+    private ArrayList<String> times = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         size = 15;
         gamelogic = new Logic(size);
         rootBox.setCenter(getGrid());
-//        file();
+        try {
+            file();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        time.setText("");
         time();
     }
 
@@ -88,7 +96,6 @@ public class GameControler implements Initializable {
                         counter.setText(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
                         if (timeSeconds >= 3600) {
                             timeline.stop();
-//                            saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
                         }
                     }
                 }));
@@ -98,34 +105,47 @@ public class GameControler implements Initializable {
         flags.setText("Počet vlajok: "+ gamelogic.getFlagsSize());
     }
 
-//    public void file(){
-//        File f = new File("scr/currentBestTime.txt");
-//        if(!f.exists() || f.isDirectory()) {
-//            try {
-//                System.out.println("File created");
-//                f.createNewFile();
-//            } catch (IOException e) {
-//                System.out.println("Problem s file");
-//            }
-//        }
-//        try {
-//            br = new BufferedReader(new FileReader(f));
-//            bw = new BufferedWriter(new FileWriter(f,true));
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Problem s buffer readerom");
-//        } catch (IOException e) {
-//            System.out.println("Problem s buffer writerom");
-//        }
-//        saveTime("Ahoj");
-//    }
-//
-//    public void saveTime(String a){
-//        try {
-//            bw.write("Ahoj");
-//        } catch (IOException e) {
-//            System.out.println("Problem so zapisom");
-//        }
-//    }
+    public void file() throws IOException {
+        File in = new File("src\\currentTime.txt");
+        if (!in.exists()){
+            in.createNewFile();
+        }
+        br = new BufferedReader(new FileReader(in));
+        bw = new BufferedWriter(new FileWriter("src\\currentTime.txt",false));
+        bw.write("");
+        bw.close();
+    }
+    public void getCurrentFile() throws IOException {
+        int counter;
+        time.setText("");
+        String text = "",fullText = "";
+        while ((text = br.readLine()) != null){
+            times.add(text);
+        }
+        if (times.size() < 10){
+            counter = times.size()-1;
+        }
+        else counter = 9;
+        while(counter >= 0){
+            fullText += times.get(counter)+"\n";
+            counter--;
+        }
+        if (times.size() == 10){
+            times.remove(0);
+        }
+        time.setText(fullText);
+    }
+
+
+    public void saveTime(String a){
+        try {
+            bw = new BufferedWriter(new FileWriter("src\\currentTime.txt",true));
+            bw.write(a+"\n");
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Problem so zapisom");
+        }
+    }
 
     public GridPane getGrid(){
         GridPane grid = new GridPane();
@@ -264,6 +284,8 @@ public class GameControler implements Initializable {
         if(actionEvent.getSource()==resetGame){
             showed.clear();
             win = true;
+            saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
+            getCurrentFile();
             size = 15;
             gamelogic = new Logic(size);
             rootBox.setCenter(getGrid());
