@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backPanel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="backPanel" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.Controller">
+<AnchorPane fx:id="backPanel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="backPanel" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.Controller">
    <children>
       <Rectangle fx:id="blurry" arcHeight="5.0" arcWidth="5.0" height="2000.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <fill>
@@ -46,5 +46,10 @@
          <font>
             <Font name="Dubai Bold" size="25.0" />
          </font></Button>
+      <ImageView fitHeight="885.0" fitWidth="1411.0" layoutX="598.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@roman.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
