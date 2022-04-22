@@ -226,7 +226,7 @@ public class GameControler implements Initializable {
 
 
                 for (int [] flag: flagsList){
-                    if (flag[0] == i && flag[1] == o && newBtn.getText().equals("\uD83D\uDCA3")){
+                    if (flag[0] == i && flag[1] == o && newBtn.getText().equals("\uD83D\uDCA3") && !win){
                         newBtn = new Button("❌");
                         newBtn.getStyleClass().add("mine-btn");
                     } else if (flag[0] == i && flag[1] == o){
