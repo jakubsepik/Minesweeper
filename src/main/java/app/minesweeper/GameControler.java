@@ -45,12 +45,12 @@ public class GameControler implements Initializable {
     private Integer timeSeconds = STARTTIME;
 
     /* velkost hracej plochy */
-    private int size, flagsCount, minesCount;
+    private int size, flagsCount, minesCount, showedCount;
     private double x, y;
     private boolean win = true;
     private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
-    private Set<int[]> showed = new HashSet<>();
+    private HashSet<int[]> showed = new HashSet<>();
 
     @FXML
     private Label flags;
@@ -62,12 +62,13 @@ public class GameControler implements Initializable {
     @FXML
     private Label time;
     private ArrayList<String> times = new ArrayList<>();
-    private Set<int []> flagsList;
+    private HashSet<int []> flagsList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        size = 15;
+        size = 5;
         flagsCount = 0;
+        showedCount = 0;
         gamelogic = new Logic(size);
         minesCount = gamelogic.getMines();
         rootBox.setCenter(getGrid());
@@ -164,8 +165,8 @@ public class GameControler implements Initializable {
                     int x =GridPane.getRowIndex((Node) e.getSource());
 
                     if (e.getButton() == MouseButton.PRIMARY){
-                        int [] cell = {x, y};
-                        showed.add(cell);
+                        showed.addAll(gamelogic.getOne(x, y));
+                        showedCount = showed.size();
 
                         /* kontrola ci nebola trafena mina */
                         if (gamelogic.getBoard()[x][y] == 'X'){
@@ -223,20 +224,24 @@ public class GameControler implements Initializable {
                 flagsList = gamelogic.getFlags();
                 Button newBtn = showBtn(grid, i, o);
 
+
                 for (int [] flag: flagsList){
-                    if (flag[0] == i && flag[1] == o){
+                    if (flag[0] == i && flag[1] == o && newBtn.getText().equals("\uD83D\uDCA3")){
+                        newBtn = new Button("❌");
+                        newBtn.getStyleClass().add("mine-btn");
+                    } else if (flag[0] == i && flag[1] == o){
                         newBtn = new Button("\uD83D\uDEA9");
                     }
                 }
+                String btnText = newBtn.getText();
                 /* ak nebola trafna mina tak sa updatne grid aj s action na tlacidlach */
                 if (win) {
                     newBtn.setOnMouseClicked(e -> {
                         int newY =GridPane.getColumnIndex((Node) e.getSource());
                         int newX =GridPane.getRowIndex((Node) e.getSource());
 
-                        if (e.getButton() == MouseButton.PRIMARY){
-                            int [] cell = {newX, newY};
-                            showed.add(cell);
+                        if (e.getButton() == MouseButton.PRIMARY && !btnText.equals("\uD83D\uDEA9")){
+                            showed.addAll(gamelogic.getOne(x, y));
 
                             /* kontrola ci nebola stlacena mina */
                             if (gamelogic.getBoard()[newX][newY] == 'X'){
@@ -342,6 +347,15 @@ public class GameControler implements Initializable {
         }
     }
 
+    public boolean checkIfWin(GridPane grid){
+        HashSet<int[]> test = new HashSet<>(showed);
+        if (test.size() == (size * size) - gamelogic.getMines()){
+            System.out.println(test.size());
+            return true;
+        }
+        return false;
+    }
+
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==leaveButton){
             Parent rootP = FXMLLoader.load(getClass().getResource("view.fxml"));
@@ -353,12 +367,14 @@ public class GameControler implements Initializable {
             stage.show();
         }
         if(actionEvent.getSource()==resetGame){
+            System.out.println(showedCount);
             showed.clear();
             win = true;
             saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
             getCurrentFile();
-            size = 15;
+            size = 5;
             flagsCount = 0;
+            showedCount = 0;
             gamelogic = new Logic(size);
             minesCount = gamelogic.getMines();
             rootBox.setCenter(getGrid());

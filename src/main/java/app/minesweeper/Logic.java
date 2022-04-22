@@ -5,7 +5,7 @@ import java.util.*;
 public class Logic {
     private int size;
     private int mines;
-    private final Set<int[]> flags;
+    private final HashSet<int[]> flags;
     private final char[][] board;
     Random rn = new Random();
 
@@ -139,7 +139,7 @@ public class Logic {
         return checkWin();
     }
 
-    public Set<int[]> getFlags(){
+    public HashSet<int[]> getFlags(){
         return flags;
     }
 
