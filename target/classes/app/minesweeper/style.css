@@ -95,3 +95,10 @@
     -fx-background-color: rgba(255, 0, 0, 0.5);
     -fx-text-fill: black;
 }
+
+.win{
+    -fx-text-fill: green;
+}
+.lose{
+    -fx-text-fill: red;
+}

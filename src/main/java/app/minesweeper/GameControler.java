@@ -56,6 +56,8 @@ public class GameControler implements Initializable {
     private Label flags;
     @FXML
     private Label mines;
+    @FXML
+    private Label status;
 
     private BufferedReader br;
     private BufferedWriter bw;
@@ -66,6 +68,7 @@ public class GameControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        status.setText("");
         play = false;
         win = true;
         size = 10;
@@ -217,9 +220,11 @@ public class GameControler implements Initializable {
 
     public void updateGrid(GridPane grid, int x, int y, boolean showBtn, boolean flagAdd){
         if (play && win){
-            System.out.println("Výhra");
+            status.getStyleClass().add("win");
+            status.setText("Vyhral si!");
         } else if (play && !win){
-            System.out.println("Prehra");
+            status.getStyleClass().add("lose");
+            status.setText("Prehral si!");
         }
         GridPane newGrid = new GridPane();
         if (showBtn){
@@ -370,7 +375,7 @@ public class GameControler implements Initializable {
             stage.show();
         }
         if(actionEvent.getSource()==resetGame){
-            System.out.println(showedCount);
+            status.setText("");
             showed.clear();
             if (play && win){
                 saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
@@ -378,7 +383,7 @@ public class GameControler implements Initializable {
             getCurrentFile();
             win = true;
             play = false;
-            size = 10;
+            size = 5;
             flagsCount = 0;
             showedCount = 0;
             gamelogic = new Logic(size);
