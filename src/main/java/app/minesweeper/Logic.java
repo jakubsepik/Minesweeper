@@ -5,7 +5,7 @@ import java.util.*;
 public class Logic {
     private int size;
     private int mines;
-    private final ArrayList<int[]> flags;
+    private final HashSet<int[]> flags;
     private final char[][] board;
     Random rn = new Random();
 
@@ -19,7 +19,7 @@ public class Logic {
 
     public Logic(int size) {
         this.size = size;
-        this.flags = new ArrayList<>();
+        this.flags = new HashSet<>();
         board = new char[size][size];
         for (int i = 0; i < size; i++) {
             char[] tmp = new char[size];
@@ -161,8 +161,23 @@ public class Logic {
     }
 
     public boolean removeFlag(int x, int y) {
-        flags.remove(new int[]{x, y});
+        for (int [] flag: flags){
+            if (flag[0] == x && flag[1] == y){
+                flags.remove(flag);
+                break;
+            }
+        }
         return checkWin();
+    }
+
+    public HashSet<int[]> getFlags(){
+        return flags;
+    }
+
+    public void printFlags(){
+        for (int [] flag: flags){
+            System.out.println(Arrays.toString(flag));
+        }
     }
 
     private boolean checkWin() {

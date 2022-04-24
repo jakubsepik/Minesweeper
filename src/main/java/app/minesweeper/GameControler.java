@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.tools.Borders;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -45,23 +45,41 @@ public class GameControler implements Initializable {
     private Integer timeSeconds = STARTTIME;
 
     /* velkost hracej plochy */
-    private int size;
+    private int size, flagsCount, minesCount, showedCount;
     private double x, y;
-    private boolean win = true;
+    private boolean win, play;
     private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
-    private Set<int[]> showed = new HashSet<>();
+    private HashSet<int[]> showed = new HashSet<>();
 
     @FXML
     private Label flags;
     @FXML
     private Label mines;
 
+    private BufferedReader br;
+    private BufferedWriter bw;
+    @FXML
+    private Label time;
+    private ArrayList<String> times = new ArrayList<>();
+    private HashSet<int []> flagsList;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        size = 15;
+        play = true;
+        win = true;
+        size = 5;
+        flagsCount = 0;
+        showedCount = 0;
         gamelogic = new Logic(size);
+        minesCount = gamelogic.getMines();
         rootBox.setCenter(getGrid());
+        try {
+            file();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        time.setText("");
         time();
     }
 
@@ -94,34 +112,103 @@ public class GameControler implements Initializable {
         flags.setText("Počet vlajok: "+ gamelogic.getFlagsSize());
     }
 
+    public void file() throws IOException {
+        File in = new File("src\\currentTime.txt");
+        if (!in.exists()){
+            in.createNewFile();
+        }
+        br = new BufferedReader(new FileReader(in));
+        bw = new BufferedWriter(new FileWriter("src\\currentTime.txt",false));
+        bw.write("");
+        bw.close();
+    }
+    public void getCurrentFile() throws IOException {
+        int counter;
+        time.setText("");
+        String text = "",fullText = "";
+        while ((text = br.readLine()) != null){
+            times.add(text);
+        }
+        if (times.size() < 10){
+            counter = times.size()-1;
+        }
+        else counter = 9;
+        while(counter >= 0){
+            fullText += times.get(counter)+"\n";
+            counter--;
+        }
+        if (times.size() == 10){
+            times.remove(0);
+        }
+        time.setText(fullText);
+    }
+
+
+    public void saveTime(String a){
+        try {
+            bw = new BufferedWriter(new FileWriter("src\\currentTime.txt",true));
+            bw.write(a+"\n");
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Problem so zapisom");
+        }
+    }
+
     public GridPane getGrid(){
         GridPane grid = new GridPane();
         grid.getStyleClass().add("grid");
 
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
+                flagsList = gamelogic.getFlags();
                 Button btn = new Button();
                 btn.setOnMouseClicked(e -> {
                     int y =GridPane.getColumnIndex((Node) e.getSource());
                     int x =GridPane.getRowIndex((Node) e.getSource());
 
                     if (e.getButton() == MouseButton.PRIMARY){
-                        int [] cell = {x, y};
-                        showed.add(cell);
+
+                        showed.addAll(gamelogic.getOne(x, y));
+                        showedCount = showed.size();
 
                         /* kontrola ci nebola trafena mina */
                         if (gamelogic.getBoard()[x][y] == 'X'){
                             win = false;
+                            play = true;
                             getMines();
                             timeline.stop();
                         }
                         /* update gridu po kliknuti na tlacidlo */
-                        updateGrid(grid, x, y);
+
+                        updateGrid(grid, x, y, true, false);
                     } else if (e.getButton() == MouseButton.SECONDARY){
-                        btn.setText("\uD83D\uDEA9");
+                        boolean in = false;
+                        for (int [] flag: flagsList){
+                            if (flag[0] == x && flag[1] == y){
+                                in = true;
+                                break;
+                            }
+                        }
+
+                        if (in){
+                            System.out.println("odstranit");
+                            play = gamelogic.removeFlag(x, y);
+                            flagsCount --;
+                            minesCount ++;
+                            flags.setText("Počet vlajok: " + flagsCount);
+                            mines.setText("Počet mín: " + minesCount);
+                            updateGrid(grid, x, y, false, false);
+                        } else if (minesCount != 0){
+                            System.out.println("pridať");
+                            play = gamelogic.addFlag(x, y);
+                            flagsCount ++;
+                            minesCount --;
+                            flags.setText("Počet vlajok: " + flagsCount);
+                            mines.setText("Počet mín: " + minesCount);
+                            updateGrid(grid, x, y, false, true);
+                        }
                     }
                 });
-
                 btn.getStyleClass().add("grid-btn");
                 grid.add(btn, i, o);
             }
@@ -130,35 +217,89 @@ public class GameControler implements Initializable {
         return grid;
     }
 
-    public void updateGrid(GridPane grid, int x, int y){
+    public void updateGrid(GridPane grid, int x, int y, boolean showBtn, boolean flagAdd){
+        if (!play && win){
+            System.out.println("Wýhra");
+        } else if (!play && !win){
+            System.out.println("Prehra");
+        }
         GridPane newGrid = new GridPane();
-        showed.addAll(gamelogic.getOne(x, y));
+        if (showBtn){
+            showed.addAll(gamelogic.getOne(x, y));
+            System.out.println("prešlo");
+        }
         newGrid.getStyleClass().add("grid");
+
+        for (int [] cll: showed){
+            System.out.println(Arrays.toString(cll));
+        }
+        System.out.println("==================================");
 
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
+                flagsList = gamelogic.getFlags();
                 Button newBtn = showBtn(grid, i, o);
+
+
+                for (int [] flag: flagsList){
+                    if (flag[0] == i && flag[1] == o && newBtn.getText().equals("\uD83D\uDCA3") && !win){
+                        newBtn = new Button("❌");
+                        newBtn.getStyleClass().add("mine-btn");
+                    } else if (flag[0] == i && flag[1] == o){
+                        newBtn = new Button("\uD83D\uDEA9");
+                    }
+                }
+                String btnText = newBtn.getText();
                 /* ak nebola trafna mina tak sa updatne grid aj s action na tlacidlach */
-                if (win) {
+
+                if (!play) {
+
                     newBtn.setOnMouseClicked(e -> {
                         int newY =GridPane.getColumnIndex((Node) e.getSource());
                         int newX =GridPane.getRowIndex((Node) e.getSource());
 
-                        if (e.getButton() == MouseButton.PRIMARY){
-                            int [] cell = {newX, newY};
-                            showed.add(cell);
+
+                        if (e.getButton() == MouseButton.PRIMARY && !btnText.equals("\uD83D\uDEA9")){
+                            showed.addAll(gamelogic.getOne(x, y));
+
 
                             /* kontrola ci nebola stlacena mina */
                             if (gamelogic.getBoard()[newX][newY] == 'X'){
                                 System.out.println("mina");
                                 win = false;
+
+                                play = true;
                                 getMines();
                                 timeline.stop();
                             }
                             /* update gridu po stlaceni na tlacidlo */
-                            updateGrid(newGrid, newX, newY);
+                            updateGrid(newGrid, newX, newY, true, false);
                         } else if (e.getButton() == MouseButton.SECONDARY){
-                            newBtn.setText("\uD83D\uDEA9");
+                            boolean in = false;
+                            for (int [] flag: flagsList){
+                                if (flag[0] == newX && flag[1] == newY){
+                                    in = true;
+                                    break;
+                                }
+                            }
+
+                            if (in){
+                                System.out.println("odstranit");
+                                play = gamelogic.removeFlag(newX, newY);
+                                flagsCount --;
+                                minesCount ++;
+                                flags.setText("Počet vlajok: " + flagsCount);
+                                mines.setText("Počet mín: " + minesCount);
+                                updateGrid(newGrid, newX, newY, false, false);
+                            } else if (minesCount != 0){
+                                System.out.println("pridať");
+                                play = gamelogic.addFlag(newX, newY);
+                                flagsCount ++;
+                                minesCount --;
+                                flags.setText("Počet vlajok: " + flagsCount);
+                                mines.setText("Počet mín: " + minesCount);
+                                updateGrid(newGrid, newX, newY, false, true);
+                            }
                         }
                     });
                 }
@@ -228,6 +369,15 @@ public class GameControler implements Initializable {
         }
     }
 
+    public boolean checkIfWin(GridPane grid){
+        HashSet<int[]> test = new HashSet<>(showed);
+        if (test.size() == (size * size) - gamelogic.getMines()){
+            System.out.println(test.size());
+            return true;
+        }
+        return false;
+    }
+
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==leaveButton){
             Parent rootP = FXMLLoader.load(getClass().getResource("view.fxml"));
@@ -239,10 +389,16 @@ public class GameControler implements Initializable {
             stage.show();
         }
         if(actionEvent.getSource()==resetGame){
+            System.out.println(showedCount);
             showed.clear();
             win = true;
-            size = 15;
+            saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
+            getCurrentFile();
+            size = 5;
+            flagsCount = 0;
+            showedCount = 0;
             gamelogic = new Logic(size);
+            minesCount = gamelogic.getMines();
             rootBox.setCenter(getGrid());
             time();
         }

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
+<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
    <children>
        <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
            <children>
@@ -35,13 +35,13 @@
                        </LinearGradient>
                    </fill>
                </Rectangle>
-               <Label layoutX="116.0" layoutY="57.0" maxWidth="1.7976931348623157E308" text="SCORE" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="50.0">
+               <Label layoutX="116.0" layoutY="57.0" maxWidth="1.7976931348623157E308" text="TIME" textFill="WHITE" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
                    <font>
                        <Font name="System Bold" size="35.0" />
                    </font>
                </Label>
                <Line endX="110.0" layoutX="150.0" layoutY="101.0" startX="-110.0" stroke="#d97816" strokeWidth="3.0" />
-            <Label alignment="TOP_CENTER" layoutX="145.0" layoutY="134.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="200.0" text="In development" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
+            <Label fx:id="time" alignment="TOP_CENTER" layoutX="145.0" layoutY="134.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="200.0" text="In development" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
                <font>
                   <Font name="Dubai Bold" size="25.0" />
                </font>
