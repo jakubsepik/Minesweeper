@@ -47,7 +47,7 @@ public class GameControler implements Initializable {
     /* velkost hracej plochy */
     private int size, flagsCount, minesCount, showedCount;
     private double x, y;
-    private boolean win = true;
+    private boolean win, play;
     private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
     private HashSet<int[]> showed = new HashSet<>();
@@ -66,6 +66,8 @@ public class GameControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        play = true;
+        win = true;
         size = 5;
         flagsCount = 0;
         showedCount = 0;
@@ -171,6 +173,7 @@ public class GameControler implements Initializable {
                         /* kontrola ci nebola trafena mina */
                         if (gamelogic.getBoard()[x][y] == 'X'){
                             win = false;
+                            play = true;
                             getMines();
                             timeline.stop();
                         }
@@ -187,7 +190,7 @@ public class GameControler implements Initializable {
 
                         if (in){
                             System.out.println("odstranit");
-                            gamelogic.removeFlag(x, y);
+                            play = gamelogic.removeFlag(x, y);
                             flagsCount --;
                             minesCount ++;
                             flags.setText("Počet vlajok: " + flagsCount);
@@ -195,7 +198,7 @@ public class GameControler implements Initializable {
                             updateGrid(grid, x, y, false, false);
                         } else if (minesCount != 0){
                             System.out.println("pridať");
-                            gamelogic.addFlag(x, y);
+                            play = gamelogic.addFlag(x, y);
                             flagsCount ++;
                             minesCount --;
                             flags.setText("Počet vlajok: " + flagsCount);
@@ -213,11 +216,22 @@ public class GameControler implements Initializable {
     }
 
     public void updateGrid(GridPane grid, int x, int y, boolean showBtn, boolean flagAdd){
+        if (!play && win){
+            System.out.println("Wýhra");
+        } else if (!play && !win){
+            System.out.println("Prehra");
+        }
         GridPane newGrid = new GridPane();
         if (showBtn){
             showed.addAll(gamelogic.getOne(x, y));
+            System.out.println("prešlo");
         }
         newGrid.getStyleClass().add("grid");
+
+        for (int [] cll: showed){
+            System.out.println(Arrays.toString(cll));
+        }
+        System.out.println("==================================");
 
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
@@ -235,7 +249,7 @@ public class GameControler implements Initializable {
                 }
                 String btnText = newBtn.getText();
                 /* ak nebola trafna mina tak sa updatne grid aj s action na tlacidlach */
-                if (win) {
+                if (!play) {
                     newBtn.setOnMouseClicked(e -> {
                         int newY =GridPane.getColumnIndex((Node) e.getSource());
                         int newX =GridPane.getRowIndex((Node) e.getSource());
@@ -247,6 +261,7 @@ public class GameControler implements Initializable {
                             if (gamelogic.getBoard()[newX][newY] == 'X'){
                                 System.out.println("mina");
                                 win = false;
+                                play = true;
                                 getMines();
                                 timeline.stop();
                             }
@@ -263,7 +278,7 @@ public class GameControler implements Initializable {
 
                             if (in){
                                 System.out.println("odstranit");
-                                gamelogic.removeFlag(newX, newY);
+                                play = gamelogic.removeFlag(newX, newY);
                                 flagsCount --;
                                 minesCount ++;
                                 flags.setText("Počet vlajok: " + flagsCount);
@@ -271,7 +286,7 @@ public class GameControler implements Initializable {
                                 updateGrid(newGrid, newX, newY, false, false);
                             } else if (minesCount != 0){
                                 System.out.println("pridať");
-                                gamelogic.addFlag(newX, newY);
+                                play = gamelogic.addFlag(newX, newY);
                                 flagsCount ++;
                                 minesCount --;
                                 flags.setText("Počet vlajok: " + flagsCount);
