@@ -50,7 +50,7 @@ public class GameControler implements Initializable {
     private boolean win, play;
     private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
-    private HashSet<int[]> showed = new HashSet<>();
+    private LinkedHashSet<int[]> showed = new LinkedHashSet<>();
 
     @FXML
     private Label flags;
@@ -71,7 +71,7 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 10;
+        size = 15;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
@@ -170,16 +170,14 @@ public class GameControler implements Initializable {
                     int x =GridPane.getRowIndex((Node) e.getSource());
 
                     if (e.getButton() == MouseButton.PRIMARY){
-
-                        showed.addAll(gamelogic.getOne(x, y));
-                        showedCount = showed.size();
-
                         /* kontrola ci nebola trafena mina */
                         if (gamelogic.getBoard()[x][y] == 'X'){
                             win = false;
                             play = true;
                             getMines();
                             timeline.stop();
+                        } else {
+                            addToShowed(x, y);
                         }
                         /* update gridu po kliknuti na tlacidlo */
 
@@ -219,18 +217,27 @@ public class GameControler implements Initializable {
     }
 
     public void updateGrid(GridPane grid, int x, int y, boolean showBtn, boolean flagAdd){
+        if (showedCount == ((size * size) - minesCount)) {
+            play = true;
+            win = true;
+            timeline.stop();
+        }
         if (play && win){
-            status.getStyleClass().add("win");
+            status.setStyle("-fx-text-fill: green");
             status.setText("Vyhral si!");
         } else if (play && !win){
-            status.getStyleClass().add("lose");
+            status.setStyle("-fx-text-fill: red");
             status.setText("Prehral si!");
         }
         GridPane newGrid = new GridPane();
         if (showBtn){
-            showed.addAll(gamelogic.getOne(x, y));
+            addToShowed(x, y);
         }
         newGrid.getStyleClass().add("grid");
+        for (int [] cell: showed){
+            System.out.println(Arrays.toString(cell));
+        }
+        System.out.println("================================");
 
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
@@ -249,7 +256,7 @@ public class GameControler implements Initializable {
                 String btnText = newBtn.getText();
                 /* ak nebola trafna mina tak sa updatne grid aj s action na tlacidlach */
 
-                if (!play) {
+                if (!play && showedCount != ((size * size) - minesCount)) {
 
                     newBtn.setOnMouseClicked(e -> {
                         int newY =GridPane.getColumnIndex((Node) e.getSource());
@@ -257,15 +264,14 @@ public class GameControler implements Initializable {
 
 
                         if (e.getButton() == MouseButton.PRIMARY && !btnText.equals("\uD83D\uDEA9")){
-                            showed.addAll(gamelogic.getOne(x, y));
-
-
                             /* kontrola ci nebola stlacena mina */
                             if (gamelogic.getBoard()[newX][newY] == 'X'){
                                 win = false;
                                 play = true;
                                 getMines();
                                 timeline.stop();
+                            } else {
+                                addToShowed(newX, newY);
                             }
                             /* update gridu po stlaceni na tlacidlo */
                             updateGrid(newGrid, newX, newY, true, false);
@@ -304,6 +310,20 @@ public class GameControler implements Initializable {
         }
         newGrid.getStyleClass().add("grid");
         rootBox.setCenter(newGrid);
+    }
+
+    public void addToShowed(int x, int y){
+        boolean in = false;
+        for (int [] cell: gamelogic.getOne(x, y)){
+            for (int [] show: showed){
+                if (cell[0] == show[0] && cell[1] == show[1]){
+                    in = true;
+                    break;
+                }
+            }
+            if (!in) showed.add(cell);
+        }
+        showedCount = showed.size();
     }
 
     /* zobrazenie obsahu tlacidla po stlaceni */
@@ -383,7 +403,7 @@ public class GameControler implements Initializable {
             getCurrentFile();
             win = true;
             play = false;
-            size = 5;
+            size = 15;
             flagsCount = 0;
             showedCount = 0;
             gamelogic = new Logic(size);
