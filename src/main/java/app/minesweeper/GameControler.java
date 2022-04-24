@@ -68,7 +68,7 @@ public class GameControler implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         play = false;
         win = true;
-        size = 5;
+        size = 10;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
@@ -227,10 +227,6 @@ public class GameControler implements Initializable {
         }
         newGrid.getStyleClass().add("grid");
 
-        for (int [] cll: showed){
-            System.out.println(Arrays.toString(cll));
-        }
-
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 flagsList = gamelogic.getFlags();
@@ -382,7 +378,7 @@ public class GameControler implements Initializable {
             getCurrentFile();
             win = true;
             play = false;
-            size = 5;
+            size = 10;
             flagsCount = 0;
             showedCount = 0;
             gamelogic = new Logic(size);
