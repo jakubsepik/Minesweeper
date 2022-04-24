@@ -66,7 +66,7 @@ public class GameControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        play = true;
+        play = false;
         win = true;
         size = 5;
         flagsCount = 0;
@@ -191,7 +191,6 @@ public class GameControler implements Initializable {
                         }
 
                         if (in){
-                            System.out.println("odstranit");
                             play = gamelogic.removeFlag(x, y);
                             flagsCount --;
                             minesCount ++;
@@ -199,7 +198,6 @@ public class GameControler implements Initializable {
                             mines.setText("Počet mín: " + minesCount);
                             updateGrid(grid, x, y, false, false);
                         } else if (minesCount != 0){
-                            System.out.println("pridať");
                             play = gamelogic.addFlag(x, y);
                             flagsCount ++;
                             minesCount --;
@@ -218,22 +216,20 @@ public class GameControler implements Initializable {
     }
 
     public void updateGrid(GridPane grid, int x, int y, boolean showBtn, boolean flagAdd){
-        if (!play && win){
-            System.out.println("Wýhra");
-        } else if (!play && !win){
+        if (play && win){
+            System.out.println("Výhra");
+        } else if (play && !win){
             System.out.println("Prehra");
         }
         GridPane newGrid = new GridPane();
         if (showBtn){
             showed.addAll(gamelogic.getOne(x, y));
-            System.out.println("prešlo");
         }
         newGrid.getStyleClass().add("grid");
 
         for (int [] cll: showed){
             System.out.println(Arrays.toString(cll));
         }
-        System.out.println("==================================");
 
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
@@ -242,7 +238,7 @@ public class GameControler implements Initializable {
 
 
                 for (int [] flag: flagsList){
-                    if (flag[0] == i && flag[1] == o && newBtn.getText().equals("\uD83D\uDCA3") && !win){
+                    if (flag[0] == i && flag[1] == o && newBtn.getText().equals("\uD83D\uDCA3") && play && !win){
                         newBtn = new Button("❌");
                         newBtn.getStyleClass().add("mine-btn");
                     } else if (flag[0] == i && flag[1] == o){
@@ -265,9 +261,7 @@ public class GameControler implements Initializable {
 
                             /* kontrola ci nebola stlacena mina */
                             if (gamelogic.getBoard()[newX][newY] == 'X'){
-                                System.out.println("mina");
                                 win = false;
-
                                 play = true;
                                 getMines();
                                 timeline.stop();
@@ -284,7 +278,6 @@ public class GameControler implements Initializable {
                             }
 
                             if (in){
-                                System.out.println("odstranit");
                                 play = gamelogic.removeFlag(newX, newY);
                                 flagsCount --;
                                 minesCount ++;
@@ -292,7 +285,6 @@ public class GameControler implements Initializable {
                                 mines.setText("Počet mín: " + minesCount);
                                 updateGrid(newGrid, newX, newY, false, false);
                             } else if (minesCount != 0){
-                                System.out.println("pridať");
                                 play = gamelogic.addFlag(newX, newY);
                                 flagsCount ++;
                                 minesCount --;
@@ -302,6 +294,8 @@ public class GameControler implements Initializable {
                             }
                         }
                     });
+                } else {
+                    timeline.stop();
                 }
                 newBtn.getStyleClass().add("grid-btn");
                 newGrid.add(newBtn, o, i);
@@ -319,9 +313,9 @@ public class GameControler implements Initializable {
                 if (gamelogic.getBoard()[x][y] == '0') {
                     newBtn = new Button();
                     newBtn.getStyleClass().add("zero-btn");
-                } else if (gamelogic.getBoard()[x][y] == 'X') {
+                } else if (gamelogic.getBoard()[x][y] == 'X' && play && !win) {
                     newBtn = new Button("\uD83D\uDCA3");
-                } else {
+                } else if (gamelogic.getBoard()[x][y] != 'X'){
                     newBtn = new Button(Character.toString(gamelogic.getBoard()[x][y]));
                 }
 
@@ -349,7 +343,7 @@ public class GameControler implements Initializable {
                 if (gamelogic.getBoard()[x][y] == '8') {
                     newBtn.getStyleClass().add("eight-btn");
                 }
-                if (gamelogic.getBoard()[x][y] == 'X') {
+                if (gamelogic.getBoard()[x][y] == 'X' && play && !win) {
                     newBtn.getStyleClass().add("mine-btn");
                 }
             }
@@ -369,15 +363,6 @@ public class GameControler implements Initializable {
         }
     }
 
-    public boolean checkIfWin(GridPane grid){
-        HashSet<int[]> test = new HashSet<>(showed);
-        if (test.size() == (size * size) - gamelogic.getMines()){
-            System.out.println(test.size());
-            return true;
-        }
-        return false;
-    }
-
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==leaveButton){
             Parent rootP = FXMLLoader.load(getClass().getResource("view.fxml"));
@@ -391,9 +376,12 @@ public class GameControler implements Initializable {
         if(actionEvent.getSource()==resetGame){
             System.out.println(showedCount);
             showed.clear();
-            win = true;
-            saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
+            if (play && win){
+                saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
+            }
             getCurrentFile();
+            win = true;
+            play = false;
             size = 5;
             flagsCount = 0;
             showedCount = 0;
