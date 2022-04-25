@@ -54,7 +54,6 @@ public class GameControler implements Initializable {
     private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
     private LinkedHashSet<int[]> showed = new LinkedHashSet<>();
-    private ArrayList<String> times = new ArrayList<>();
     private HashSet<int []> flagsList;
 
     @FXML
@@ -67,20 +66,22 @@ public class GameControler implements Initializable {
     private BufferedReader br;
     private BufferedWriter bw;
     @FXML
-<<<<<<< Updated upstream
     private Label time,score;
     private ArrayList<String> times = new ArrayList<>();
     private ArrayList<String> best = new ArrayList<>();
     final String easy = "src\\leaderEasy.txt",medium = "src\\leaderMedium.txt",hard = "src\\leaderHard.txt";
     private File leader = null;
-    private HashSet<int []> flagsList;
-=======
-    private Label time;
->>>>>>> Stashed changes
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        time.setText("");
+        score.setText("");
         startGame();
+        try {
+            file();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // zadefinovanie parametrov na spustenie hry po kazdom resete
@@ -95,10 +96,7 @@ public class GameControler implements Initializable {
         gamelogic = new Logic(size);
         minesCount = gamelogic.getMines();
         rootBox.setCenter(getGrid());
-        time.setText("");
-        score.setText("");
         try {
-            file();
             getLeader(1);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -310,11 +308,6 @@ public class GameControler implements Initializable {
 
     // kontrola vyhry
     public void checkIfWin(){
-        if (showedCount == ((size * size) - gamelogic.getMines())) {
-            play = true;
-            win = true;
-            timeline.stop();
-        }
         if (play && win){
             status.setStyle("-fx-text-fill: green");
             status.setText("Vyhral si!");
@@ -355,11 +348,10 @@ public class GameControler implements Initializable {
     // update gridu po stlaceni na policko
     public void updateGrid(GridPane grid, int x, int y, boolean showBtn){
         flagsList = gamelogic.getFlags(); // ziskanie kolekcie so suradnicami vlajok
-        checkIfWin(); // kontrola vyhry
+        checkIfWin();
         GridPane newGrid = new GridPane();
-        if (showBtn) addToShowed(x, y);
         newGrid.getStyleClass().add("grid");
-        showedCount = 1;
+        showedCount = 0;
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 Button newBtn = showBtn(i, o);
@@ -368,7 +360,7 @@ public class GameControler implements Initializable {
                 }
                 newBtn = checkIfFlag(newBtn, i ,o); // kontrola a vypis vlajky
                 String btnText = newBtn.getText();
-                if (!play && showedCount != ((size * size) - minesCount)) {
+                if (!play) {
                     newBtn.setOnMouseClicked(e -> {checkClick(e, newGrid, btnText);});
                 } else timeline.stop();
                 newBtn.getStyleClass().add("grid-btn");
@@ -439,19 +431,7 @@ public class GameControler implements Initializable {
                 saveBestTime(1,String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
             }
             getCurrentFile();
-<<<<<<< Updated upstream
-            win = true;
-            play = false;
-            size = 5;
-            flagsCount = 0;
-            showedCount = 0;
-            gamelogic = new Logic(size);
-            minesCount = gamelogic.getMines();
-            rootBox.setCenter(getGrid());
-            time();
-=======
             startGame();
->>>>>>> Stashed changes
         }
     }
 }
