@@ -66,6 +66,7 @@ public class GameControler implements Initializable {
     private ArrayList<String> times = new ArrayList<>();
     private ArrayList<String> best = new ArrayList<>();
     final String easy = "src\\leaderEasy.txt",medium = "src\\leaderMedium.txt",hard = "src\\leaderHard.txt";
+    private File leader = null;
     private HashSet<int []> flagsList;
 
     @Override
@@ -79,13 +80,14 @@ public class GameControler implements Initializable {
         gamelogic = new Logic(size);
         minesCount = gamelogic.getMines();
         rootBox.setCenter(getGrid());
+        time.setText("");
+        score.setText("");
         try {
             file();
+            getLeader(1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        time.setText("");
-        score.setText("");
         time();
     }
 
@@ -148,6 +150,29 @@ public class GameControler implements Initializable {
         }
         time.setText(fullText);
     }
+    public void getLeader(int f) throws IOException {
+        if (f == 1){
+            leader = new File(easy);
+            if (!leader.exists()) leader.createNewFile();
+        }
+        if (f == 2){
+            leader = new File(medium);
+            if (!leader.exists()) leader.createNewFile();
+        }
+        if (f == 3) {
+            leader = new File(hard);
+            if (!leader.exists()) leader.createNewFile();
+        }
+
+        String text = "",full = "";
+        BufferedReader r = new BufferedReader(new FileReader(leader));
+        while ((text = r.readLine()) != null){
+            best.add(text);
+            full += text+"\n";
+            System.out.println("FULL :\n"+full);
+        }
+        score.setText(full);
+    }
 
 
     public void saveTime(String a){
@@ -160,34 +185,14 @@ public class GameControler implements Initializable {
         }
     }
     public void saveBestTime(int f,String a) throws IOException{
-        File h = null;
-        if (f == 1){
-            h = new File(easy);
-            if (!h.exists()) h.createNewFile();
-        }
-        if (f == 2){
-            h = new File(medium);
-            if (!h.exists()) h.createNewFile();
-        }
-        if (f == 3) {
-            h = new File(hard);
-            if (!h.exists()) h.createNewFile();
-        }
-
-        String text = "",fullText = "";
-        BufferedReader r = new BufferedReader(new FileReader(h));
-        while ((text = r.readLine()) != null){
-            best.add(text);
-        }
-
-        BufferedWriter w = new BufferedWriter(new FileWriter(h,false));
+        BufferedWriter w = new BufferedWriter(new FileWriter(leader,false));
         w.write("");
         best.add(a);
 
         Collections.sort(best);
-        Collections.reverse(best);
 
         int counter = 0;
+        String fullText = "";
         while(counter < 10 && counter < best.size()){
             fullText += best.get(counter)+"\n";
             w.write(best.get(counter)+"\n");
