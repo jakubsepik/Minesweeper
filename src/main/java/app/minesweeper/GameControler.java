@@ -181,6 +181,7 @@ public class GameControler implements Initializable {
 
         String text = "",full = "";
         BufferedReader r = new BufferedReader(new FileReader(leader));
+        best.clear();
         while ((text = r.readLine()) != null){
             best.add(text);
             full += text+"\n";
@@ -205,6 +206,7 @@ public class GameControler implements Initializable {
         best.add(a);
 
         Collections.sort(best);
+        System.out.println(best);
 
         int counter = 0;
         String fullText = "";
