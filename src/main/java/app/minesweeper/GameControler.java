@@ -62,8 +62,10 @@ public class GameControler implements Initializable {
     private BufferedReader br;
     private BufferedWriter bw;
     @FXML
-    private Label time;
+    private Label time,score;
     private ArrayList<String> times = new ArrayList<>();
+    private ArrayList<String> best = new ArrayList<>();
+    final String easy = "src\\leaderEasy.txt",medium = "src\\leaderMedium.txt",hard = "src\\leaderHard.txt";
     private HashSet<int []> flagsList;
 
     @Override
@@ -71,7 +73,7 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 15;
+        size = 5;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
@@ -83,6 +85,7 @@ public class GameControler implements Initializable {
             throw new RuntimeException(e);
         }
         time.setText("");
+        score.setText("");
         time();
     }
 
@@ -155,6 +158,43 @@ public class GameControler implements Initializable {
         } catch (IOException e) {
             System.out.println("Problem so zapisom");
         }
+    }
+    public void saveBestTime(int f,String a) throws IOException{
+        File h = null;
+        if (f == 1){
+            h = new File(easy);
+            if (!h.exists()) h.createNewFile();
+        }
+        if (f == 2){
+            h = new File(medium);
+            if (!h.exists()) h.createNewFile();
+        }
+        if (f == 3) {
+            h = new File(hard);
+            if (!h.exists()) h.createNewFile();
+        }
+
+        String text = "",fullText = "";
+        BufferedReader r = new BufferedReader(new FileReader(h));
+        while ((text = r.readLine()) != null){
+            best.add(text);
+        }
+
+        BufferedWriter w = new BufferedWriter(new FileWriter(h,false));
+        w.write("");
+        best.add(a);
+
+        Collections.sort(best);
+        Collections.reverse(best);
+
+        int counter = 0;
+        while(counter < 10 && counter < best.size()){
+            fullText += best.get(counter)+"\n";
+            w.write(best.get(counter)+"\n");
+            counter++;
+        }
+        score.setText(fullText);
+        w.close();
     }
 
     public GridPane getGrid(){
@@ -399,11 +439,12 @@ public class GameControler implements Initializable {
             showed.clear();
             if (play && win){
                 saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
+                saveBestTime(1,String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
             }
             getCurrentFile();
             win = true;
             play = false;
-            size = 15;
+            size = 5;
             flagsCount = 0;
             showedCount = 0;
             gamelogic = new Logic(size);

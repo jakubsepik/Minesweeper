@@ -30,23 +30,10 @@ public class Controller implements Initializable {
     @FXML
     private Rectangle blurry,secondPanel;
 
-
-    @FXML
-    protected void keyPressed(KeyEvent event){
-
-    }
-
-    @FXML
-    protected void keyReleased(KeyEvent event){
-
-    }
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
 
     /* handling buttons clicks */
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {

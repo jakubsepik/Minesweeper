@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
+<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
    <children>
        <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
            <children>
@@ -76,6 +82,11 @@
                    </font>
                </Label>
                <Line endX="135.0" layoutX="145.0" layoutY="110.0" startX="-115.0" stroke="#d97816" strokeWidth="3.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="score" alignment="TOP_CENTER" layoutX="141.0" layoutY="130.0" text="Label" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="135.0">
+               <font>
+                  <Font name="Dubai Bold" size="25.0" />
+               </font>
+            </Label>
            </children>
        </AnchorPane>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
@@ -118,7 +129,7 @@
                         </Label>
                      </right>
                      <center>
-                        <Label fx:id="status" alignment="CENTER" text="" BorderPane.alignment="CENTER" prefHeight="117.0" prefWidth="400.0">
+                        <Label fx:id="status" alignment="CENTER" prefHeight="117.0" prefWidth="400.0" text="" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="28.0" />
                            </font>

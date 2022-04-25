@@ -46,10 +46,5 @@
          <font>
             <Font name="Dubai Bold" size="25.0" />
          </font></Button>
-      <ImageView fitHeight="885.0" fitWidth="1411.0" layoutX="598.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@roman.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
