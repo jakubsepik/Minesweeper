@@ -54,6 +54,7 @@ public class GameControler implements Initializable {
     private Logic gamelogic;
     /* list s poliami kde su suradnice  uz zobrazenych policok */
     private LinkedHashSet<int[]> showed = new LinkedHashSet<>();
+    private LinkedHashSet<int[]> showedTest = new LinkedHashSet<>();
     private HashSet<int []> flagsList;
 
     @FXML
@@ -87,6 +88,7 @@ public class GameControler implements Initializable {
     // zadefinovanie parametrov na spustenie hry po kazdom resete
     public void startGame(){
         showed.clear();
+        showedTest.clear();
         status.setText("");
         play = false;
         win = true;
@@ -285,6 +287,7 @@ public class GameControler implements Initializable {
             System.out.println("prešiel lavy klik");
             if (gamelogic.getBoard()[x][y] == 'X') mineHit(); // hitnutie miny
             else addToShowed(x, y);
+            checkIfWin();
             updateGrid(grid, x, y, true);
         } else if (e.getButton() == MouseButton.SECONDARY && canPutFlag(x, y)){ // pravy klik
             System.out.println("prešiel klik");
@@ -310,6 +313,12 @@ public class GameControler implements Initializable {
 
     // kontrola vyhry
     public void checkIfWin(){
+        if (showedCount == (size * size) - gamelogic.getMines()){
+            play = true;
+            win = true;
+            timeline.stop();
+        }
+
         if (play && win){
             status.setStyle("-fx-text-fill: green");
             status.setText("Vyhral si!");
@@ -353,13 +362,9 @@ public class GameControler implements Initializable {
         checkIfWin();
         GridPane newGrid = new GridPane();
         newGrid.getStyleClass().add("grid");
-        showedCount = 0;
         for(int i=0;i<size;i++){
             for(int o=0;o<size;o++){
                 Button newBtn = showBtn(i, o);
-                if (newBtn.getStyleClass().size() > 1){
-                    showedCount ++;
-                }
                 newBtn = checkIfFlag(newBtn, i ,o); // kontrola a vypis vlajky
                 String btnText = newBtn.getText();
                 if (!play) {
@@ -375,7 +380,10 @@ public class GameControler implements Initializable {
 
     // pridanie suradnic do zobrazenych
     public void addToShowed(int x, int y){
-        showed.addAll(gamelogic.getOne(x, y));
+        for (int [] cell: gamelogic.getOne(x, y)){
+            showed.add(cell);
+        }
+        showedCount = showed.size();
     }
 
     // priradenie hodnoty pre policko
