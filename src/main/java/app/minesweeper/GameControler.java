@@ -92,7 +92,7 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 4;
+        size = 15;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
@@ -398,7 +398,15 @@ public class GameControler implements Initializable {
     // pridanie suradnic do zobrazenych
     public void addToShowed(int x, int y){
         for (int [] cell: gamelogic.getOne(x, y)){
-            showed.add(new int[]{cell[0], cell[1]});
+            boolean in = false;
+            for (int [] test: showed){
+                if (cell[0] == test[0] && cell[1] == test[1]){
+                    in = true;
+                }
+            }
+            if (!in){
+                showed.add(new int[]{cell[0], cell[1]});
+            }
         }
         showedCount = showed.size();
     }
