@@ -92,7 +92,7 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 5;
+        size = 4;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
@@ -328,6 +328,15 @@ public class GameControler implements Initializable {
         }
     }
 
+    public boolean inShowed(int x, int y){
+        for (int [] cell: showed){
+            if (cell[0] == x && cell[1] == y){
+                return true;
+            }
+        }
+        return false;
+    }
+
     // vypis suradnic zobrazenych policok
     public void printShowed(LinkedHashSet<int []> set){
         for (int [] cell: set){
@@ -347,7 +356,9 @@ public class GameControler implements Initializable {
             for(int o=0;o<size;o++){
                 Button btn = new Button();
                 String btnText = btn.getText();
-                btn.setOnMouseClicked(e -> {checkClick(e, grid, btnText);});
+                if (!inShowed(i, o)){
+                    btn.setOnMouseClicked(e -> {checkClick(e, grid, btnText);});
+                }
                 btn.getStyleClass().add("grid-btn");
                 grid.add(btn, i, o);
             }
@@ -367,9 +378,15 @@ public class GameControler implements Initializable {
                 Button newBtn = showBtn(i, o);
                 newBtn = checkIfFlag(newBtn, i ,o); // kontrola a vypis vlajky
                 String btnText = newBtn.getText();
-                if (!play) {
+                if (play && win && btnText.equals("") && gamelogic.getBoard()[i][o] == 'X'){
+                    newBtn = new Button("\uD83D\uDEA9");
+                }
+                printShowed(showed);
+                if (!play && !inShowed(i, o)) {
                     newBtn.setOnMouseClicked(e -> {checkClick(e, newGrid, btnText);});
-                } else timeline.stop();
+                } else if (play){
+                    timeline.stop();
+                };
                 newBtn.getStyleClass().add("grid-btn");
                 newGrid.add(newBtn, o, i);
             }
@@ -381,7 +398,7 @@ public class GameControler implements Initializable {
     // pridanie suradnic do zobrazenych
     public void addToShowed(int x, int y){
         for (int [] cell: gamelogic.getOne(x, y)){
-            showed.add(cell);
+            showed.add(new int[]{cell[0], cell[1]});
         }
         showedCount = showed.size();
     }
@@ -392,7 +409,7 @@ public class GameControler implements Initializable {
         for (int[] cell : showed) {
             if (cell[0] == x && cell[1] == y) {
                 if (gamelogic.getBoard()[x][y] == '0') {
-                    newBtn = new Button();
+                    newBtn = new Button(" ");
                     newBtn.getStyleClass().add("zero-btn");
                 } else if (gamelogic.getBoard()[x][y] == 'X') newBtn = new Button("\uD83D\uDCA3");
                 else newBtn = new Button(Character.toString(gamelogic.getBoard()[x][y]));
