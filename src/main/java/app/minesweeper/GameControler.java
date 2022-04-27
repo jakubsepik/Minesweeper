@@ -92,7 +92,7 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 15;
+        size = 5;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
@@ -187,7 +187,6 @@ public class GameControler implements Initializable {
         while ((text = r.readLine()) != null){
             best.add(text);
             full += text+"\n";
-            System.out.println("FULL :\n"+full);
         }
         score.setText(full);
     }
@@ -208,7 +207,6 @@ public class GameControler implements Initializable {
         best.add(a);
 
         Collections.sort(best);
-        System.out.println(best);
 
         int counter = 0;
         String fullText = "";
@@ -240,7 +238,6 @@ public class GameControler implements Initializable {
         minesCount ++;
         flags.setText("Počet vlajok: " + flagsCount);
         mines.setText("Počet mín: " + minesCount);
-        System.out.println("prešlo odstranenie");
         updateGrid(grid, x, y, false);
     }
 
@@ -251,7 +248,6 @@ public class GameControler implements Initializable {
         minesCount --;
         flags.setText("Počet vlajok: " + flagsCount);
         mines.setText("Počet mín: " + minesCount);
-        System.out.println("prešlo pridanie");
         updateGrid(grid, x, y, false);
     }
 
@@ -284,13 +280,11 @@ public class GameControler implements Initializable {
         int y =GridPane.getColumnIndex((Node) e.getSource());
         int x =GridPane.getRowIndex((Node) e.getSource());
         if (e.getButton() == MouseButton.PRIMARY && !btnText.equals("\uD83D\uDEA9")){ // lavy klik
-            System.out.println("prešiel lavy klik");
             if (gamelogic.getBoard()[x][y] == 'X') mineHit(); // hitnutie miny
             else addToShowed(x, y);
             checkIfWin();
             updateGrid(grid, x, y, true);
         } else if (e.getButton() == MouseButton.SECONDARY && canPutFlag(x, y)){ // pravy klik
-            System.out.println("prešiel klik");
             if (inFlags(x, y)) removeFlag(grid, x, y);
             else if (minesCount != 0) addFlag(grid, x, y);
             updateGrid(grid, x, y, false);
@@ -380,8 +374,9 @@ public class GameControler implements Initializable {
                 String btnText = newBtn.getText();
                 if (play && win && btnText.equals("") && gamelogic.getBoard()[i][o] == 'X'){
                     newBtn = new Button("\uD83D\uDEA9");
+                } else if (play && win && !newBtn.getText().equals("\uD83D\uDEA9")){
+                    addToShowed(i, o);
                 }
-                printShowed(showed);
                 if (!play && !inShowed(i, o)) {
                     newBtn.setOnMouseClicked(e -> {checkClick(e, newGrid, btnText);});
                 } else if (play){
@@ -461,7 +456,6 @@ public class GameControler implements Initializable {
         }
         if(actionEvent.getSource()==resetGame){ // resetovanie hry
             if (play && win){
-                System.out.println("som gay");
                 saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
                 saveBestTime(1,String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
             }
