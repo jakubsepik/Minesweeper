@@ -92,7 +92,7 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 5;
+        size = 18;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);
