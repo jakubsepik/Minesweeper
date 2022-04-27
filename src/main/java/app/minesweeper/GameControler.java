@@ -72,7 +72,6 @@ public class GameControler implements Initializable {
     private ArrayList<String> best = new ArrayList<>();
     final String easy = "src\\leaderEasy.txt",medium = "src\\leaderMedium.txt",hard = "src\\leaderHard.txt";
     private File leader = null;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         time.setText("");
@@ -85,6 +84,10 @@ public class GameControler implements Initializable {
         }
     }
 
+    public void setDifficulty(int size){
+        this.size = size;
+    }
+
     // zadefinovanie parametrov na spustenie hry po kazdom resete
     public void startGame(){
         showed.clear();
@@ -92,7 +95,6 @@ public class GameControler implements Initializable {
         status.setText("");
         play = false;
         win = true;
-        size = 18;
         flagsCount = 0;
         showedCount = 0;
         gamelogic = new Logic(size);

@@ -26,7 +26,7 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane backPanel;
     @FXML
-    private Button startButton,aboutButton,helpButton,exitButton;
+    private Button startButton,aboutButton,helpButton,exitButton, beginner, intermediate, expert;
     @FXML
     private Rectangle blurry,secondPanel;
 
@@ -40,13 +40,9 @@ public class Controller implements Initializable {
 
         /* open scene with game when startButton is clicked */
         if(actionEvent.getSource()==startButton){
-            Parent root = FXMLLoader.load(getClass().getResource("gameView.fxml"));
-            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("style.css").toString());
-            stage.setScene(scene);
-            stage.setFullScreen(true);
-            stage.show();
+            beginner.setVisible(true);
+            intermediate.setVisible(true);
+            expert.setVisible(true);
         }  else if(actionEvent.getSource()==helpButton){
             Parent root = FXMLLoader.load(getClass().getResource("helpView.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
@@ -57,6 +53,39 @@ public class Controller implements Initializable {
             stage.show();
         } else if(actionEvent.getSource()==exitButton){
             Platform.exit();
+        } else if (actionEvent.getSource()==beginner){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+            root = loader.load();
+            GameControler gameControler = loader.getController();
+            gameControler.setDifficulty(7);
+            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.show();
+        } else if (actionEvent.getSource()==intermediate){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+            root = loader.load();
+            GameControler gameControler = loader.getController();
+            gameControler.setDifficulty(12);
+            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.show();
+        } else if (actionEvent.getSource()==expert){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+            root = loader.load();
+            GameControler gameControler = loader.getController();
+            gameControler.setDifficulty(18);
+            stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.show();
         }
     }
 }
