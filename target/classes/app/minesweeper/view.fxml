@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backPanel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="backPanel" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.Controller">
+<AnchorPane fx:id="backPanel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="backPanel" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.Controller">
    <children>
       <Rectangle fx:id="blurry" arcHeight="5.0" arcWidth="5.0" height="2000.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <fill>
@@ -43,20 +46,42 @@
          <font>
             <Font name="Dubai Bold" size="25.0" />
          </font></Button>
-      <Button fx:id="beginner" visible="false" layoutX="960.0" layoutY="217.0" mnemonicParsing="false" text="Beginner" minHeight="60.0" minWidth="350.0" styleClass="Nbutton" onAction="#handleButtonAction">
-         <font>
-            <Font name="Dubai Bold" size="25.0" />
-         </font>
-      </Button>
-      <Button fx:id="intermediate" visible="false" layoutX="960.0" layoutY="308.0" mnemonicParsing="false" text="Intermediate" minHeight="60.0" minWidth="350.0" styleClass="Nbutton" onAction="#handleButtonAction">
-         <font>
-            <Font name="Dubai Bold" size="25.0" />
-         </font>
-      </Button>
-      <Button fx:id="expert" visible="false" layoutX="960.0" layoutY="398.0" mnemonicParsing="false" text="Expert" minHeight="60.0" minWidth="350.0" styleClass="Nbutton" onAction="#handleButtonAction">
-         <font>
-            <Font name="Dubai Bold" size="25.0" />
-         </font>
-      </Button>
+      <AnchorPane AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <Rectangle fx:id="blurry2" arcHeight="5.0" arcWidth="5.0" height="338.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="400.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.44318181095701276">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.06880000233650208" green="0.15308000147342682" blue="0.4300000071525574" opacity="0.6605479121208191" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.36899998784065247" green="0.48926666378974915" blue="0.8199999928474426" opacity="0.6364383697509766" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Button fx:id="beginner" minHeight="60.0" minWidth="350.0" mnemonicParsing="false" onAction="#handleButtonAction" styleClass="Nbutton" text="Beginner" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font name="Dubai Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="intermediate" minHeight="60.0" minWidth="350.0" mnemonicParsing="false" onAction="#handleButtonAction" styleClass="Nbutton" text="Intermediate" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="135.0">
+               <font>
+                  <Font name="Dubai Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="expert" minHeight="60.0" minWidth="350.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="352.0" styleClass="Nbutton" text="Expert" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="220.0">
+               <font>
+                  <Font name="Dubai Bold" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

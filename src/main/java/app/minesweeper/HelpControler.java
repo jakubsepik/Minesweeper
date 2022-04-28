@@ -27,15 +27,16 @@ public class HelpControler implements Initializable {
     @FXML
     private Label help1 , help2;
     @FXML
-    private AnchorPane helpPanel;
+    private AnchorPane helpPanel,panel1,panel2;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (helpPanel.getWidth()>1500){
+        if (helpPanel.getWidth()>1000){
             helpPanel.setScaleX(0.8);
-            helpPanel.setScaleY(0.7);
+            panel1.setScaleX(0.5);
+            panel2.setScaleX(0.5);
         }
 
 

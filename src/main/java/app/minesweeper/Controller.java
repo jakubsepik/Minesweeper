@@ -28,11 +28,12 @@ public class Controller implements Initializable {
     @FXML
     private Button startButton,aboutButton,helpButton,exitButton, beginner, intermediate, expert;
     @FXML
-    private Rectangle blurry,secondPanel;
+    private Rectangle blurry,secondPanel,blurry2;
+    private boolean vis;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        vis = false;
     }
 
     /* handling buttons clicks */
@@ -40,9 +41,20 @@ public class Controller implements Initializable {
 
         /* open scene with game when startButton is clicked */
         if(actionEvent.getSource()==startButton){
-            beginner.setVisible(true);
-            intermediate.setVisible(true);
-            expert.setVisible(true);
+            if (!vis){
+                beginner.setVisible(true);
+                intermediate.setVisible(true);
+                expert.setVisible(true);
+                blurry2.setVisible(true);
+                vis = true;
+            }
+            else {
+                beginner.setVisible(false);
+                intermediate.setVisible(false);
+                expert.setVisible(false);
+                blurry2.setVisible(false);
+                vis = false;
+            }
         }  else if(actionEvent.getSource()==helpButton){
             Parent root = FXMLLoader.load(getClass().getResource("helpView.fxml"));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
