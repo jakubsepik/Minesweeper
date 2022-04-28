@@ -58,6 +58,8 @@ public class Controller implements Initializable {
             root = loader.load();
             GameControler gameControler = loader.getController();
             gameControler.setDifficulty(7);
+            gameControler.startGame();
+            gameControler.getLeader();
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("style.css").toString());
@@ -69,6 +71,8 @@ public class Controller implements Initializable {
             root = loader.load();
             GameControler gameControler = loader.getController();
             gameControler.setDifficulty(12);
+            gameControler.startGame();
+            gameControler.getLeader();
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("style.css").toString());
@@ -80,6 +84,8 @@ public class Controller implements Initializable {
             root = loader.load();
             GameControler gameControler = loader.getController();
             gameControler.setDifficulty(18);
+            gameControler.startGame();
+            gameControler.getLeader();
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("style.css").toString());

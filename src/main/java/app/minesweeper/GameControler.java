@@ -76,12 +76,12 @@ public class GameControler implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         time.setText("");
         score.setText("");
-        startGame();
         try {
             file();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        startGame();
     }
 
     public void setDifficulty(int size){
@@ -100,11 +100,6 @@ public class GameControler implements Initializable {
         gamelogic = new Logic(size);
         minesCount = gamelogic.getMines();
         rootBox.setCenter(getGrid());
-        try {
-            getLeader(1);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         time();
     }
 
@@ -135,8 +130,8 @@ public class GameControler implements Initializable {
 
         // vypis poctu min a vlajok
         timeline.playFromStart();
-        mines.setText("Počet mín: "+ gamelogic.getMines());
-        flags.setText("Počet vlajok: "+ gamelogic.getFlagsSize());
+        mines.setText("Mines: "+ gamelogic.getMines());
+        flags.setText("Flags: "+ gamelogic.getFlagsSize());
     }
 
     public void file() throws IOException {
@@ -169,16 +164,19 @@ public class GameControler implements Initializable {
         }
         time.setText(fullText);
     }
-    public void getLeader(int f) throws IOException {
-        if (f == 1){
+    public void getLeader() throws IOException {
+        if (this.size == 7){
+            System.out.println("Easy");
             leader = new File(easy);
             if (!leader.exists()) leader.createNewFile();
         }
-        if (f == 2){
+        if (this.size == 12){
+            System.out.println("Medium");
             leader = new File(medium);
             if (!leader.exists()) leader.createNewFile();
         }
-        if (f == 3) {
+        if (this.size == 18) {
+            System.out.println("Hard");
             leader = new File(hard);
             if (!leader.exists()) leader.createNewFile();
         }

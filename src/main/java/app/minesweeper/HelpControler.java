@@ -33,6 +33,13 @@ public class HelpControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (helpPanel.getWidth()>1500){
+            helpPanel.setScaleX(0.8);
+            helpPanel.setScaleY(0.7);
+        }
+
+
+
         help1.setText("Welcome to a Minesweeper\n\nIn this game you are presented with a grid of boxes. You can find mines" +
                 " or empty spaces in these boxes. Your goal is to reveal all empty boxes without revealing a single mine." +
                 "You can also place Flags to indicate a mine (this action won't detonate mine).\n\nTo make it competitive, " +
