@@ -5,12 +5,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,19 +32,30 @@ public class HelpControler implements Initializable {
     private Label help1 , help2;
     @FXML
     private AnchorPane helpPanel,panel1,panel2;
+    @FXML
+    private ImageView topImg;
 
 
+    private void zmena(){
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        System.out.println(screenBounds);
+        if (screenBounds.getWidth()<1280 || screenBounds.getHeight() <1000) {
+            panel2.setMinWidth(screenBounds.getWidth()/2);
+            panel1.setMinWidth(screenBounds.getWidth()/2);
+            panel1.setScaleX(0.8);
+            panel2.setScaleX(0.8);
+            topImg.setScaleX(0.7);
+            topImg.setScaleY(0.7);
+            backButton.setScaleX(0.7);
+            backButton.setScaleY(0.7);
+            help1.setFont(Font.font ("dubai", 23));
+            help2.setFont(Font.font ("dubai", 23));
+        }
+        topImg.setFitWidth((screenBounds.getWidth()-topImg.getFitWidth())/2);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (helpPanel.getWidth()>1000){
-            helpPanel.setScaleX(0.8);
-            panel1.setScaleX(0.5);
-            panel2.setScaleX(0.5);
-        }
-
-
-
         help1.setText("Welcome to a Minesweeper\n\nIn this game you are presented with a grid of boxes. You can find mines" +
                 " or empty spaces in these boxes. Your goal is to reveal all empty boxes without revealing a single mine." +
                 "You can also place Flags to indicate a mine (this action won't detonate mine).\n\nTo make it competitive, " +
@@ -50,6 +65,7 @@ public class HelpControler implements Initializable {
                 "(use this as indicator where you think the mine is located)\n\n" +
                 "If you click on the box and it is not a mine, a number will appear in it's place (this number" +
                 " indicate number of mines in it's proximity ( 1 box to every side))");
+        zmena();
     }
 
     /* handling buttons clicks */
