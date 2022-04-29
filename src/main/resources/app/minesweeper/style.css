@@ -47,7 +47,27 @@
     -fx-label-padding: 10 10 10 10;
     -fx-alignment: center;
 }
-.grid-btn{
+.grid-btn-beginner{
+    -fx-pref-width: 35;
+    -fx-pref-height: 35;
+    -fx-font-weight: bold;
+    -fx-font-size: 10;
+    -fx-background-radius: 0;
+    -fx-border-color: rgba(0, 0, 0, 0.15);
+    -fx-border-width: 0.5px;
+}
+
+.grid-btn-intermediate{
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-font-weight: bold;
+    -fx-font-size: 10;
+    -fx-background-radius: 0;
+    -fx-border-color: rgba(0, 0, 0, 0.15);
+    -fx-border-width: 0.5px;
+}
+
+.grid-btn-expert{
     -fx-pref-width: 25;
     -fx-pref-height: 25;
     -fx-font-weight: bold;

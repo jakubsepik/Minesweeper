@@ -72,6 +72,7 @@ public class GameControler implements Initializable {
     private ArrayList<String> best = new ArrayList<>();
     final String easy = "src\\leaderEasy.txt",medium = "src\\leaderMedium.txt",hard = "src\\leaderHard.txt";
     private File leader = null;
+    public String btnClass;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         time.setText("");
@@ -88,6 +89,17 @@ public class GameControler implements Initializable {
         this.size = size;
     }
 
+    public void setBtnSize(Button btn){
+        if (size == 7){
+            btn.getStyleClass().add("grid-btn-beginner");
+        }
+        if (size == 12){
+            btn.getStyleClass().add("grid-btn-intermediate");
+        }
+        if (size == 18){
+            btn.getStyleClass().add("grid-btn-expert");
+        }
+    }
     // zadefinovanie parametrov na spustenie hry po kazdom resete
     public void startGame(){
         showed.clear();
@@ -353,7 +365,7 @@ public class GameControler implements Initializable {
                 if (!inShowed(i, o)){
                     btn.setOnMouseClicked(e -> {checkClick(e, grid, btnText);});
                 }
-                btn.getStyleClass().add("grid-btn");
+                setBtnSize(btn);
                 grid.add(btn, i, o);
             }
         }
@@ -382,7 +394,7 @@ public class GameControler implements Initializable {
                 } else if (play){
                     timeline.stop();
                 };
-                newBtn.getStyleClass().add("grid-btn");
+                setBtnSize(newBtn);
                 newGrid.add(newBtn, o, i);
             }
         }
