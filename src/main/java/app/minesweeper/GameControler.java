@@ -93,8 +93,8 @@ public class GameControler implements Initializable {
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         System.out.println(screenBounds);
         if (screenBounds.getWidth()<1280 || screenBounds.getHeight() <900){
-            flags.setFont(Font.font ("dubai", 15));
-            mines.setFont(Font.font ("dubai", 15));
+            flags.setFont(Font.font ("dubai", 10));
+            mines.setFont(Font.font ("dubai", 10));
         }
     }
 
