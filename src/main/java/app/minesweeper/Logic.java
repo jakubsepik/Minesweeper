@@ -3,8 +3,8 @@ package app.minesweeper;
 import java.util.*;
 
 public class Logic {
-    private int size;
-    private int mines;
+    private final int size;
+    private final int mines;
     private final HashSet<int[]> flags;
     private final char[][] board;
     Random rn = new Random();
@@ -28,8 +28,6 @@ public class Logic {
         }
 
         this.mines = (int) (size * size / 6.4);
-        System.out.println(mines);
-
         for (byte i = 0; i < mines; i++) {
             int x = rn.nextInt(size);
             int y = rn.nextInt(size);
@@ -73,9 +71,6 @@ public class Logic {
                         board[x - 1][y + 1]++;
             } else
                 i--;
-        }
-        for (char[] tmp : board) {
-            System.out.println(Arrays.toString(tmp));
         }
     }
 
