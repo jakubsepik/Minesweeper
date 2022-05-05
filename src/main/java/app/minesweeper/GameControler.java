@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,6 +24,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.spreadsheet.Grid;
@@ -74,6 +77,7 @@ public class GameControler implements Initializable {
     private File leader = null;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         time.setText("");
         score.setText("");
         try {
@@ -82,6 +86,15 @@ public class GameControler implements Initializable {
             throw new RuntimeException(e);
         }
         startGame();
+    }
+
+    public void screenSize(){
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        System.out.println(screenBounds);
+        if (screenBounds.getWidth()<1280 || screenBounds.getHeight() <900){
+            flags.setFont(Font.font ("dubai", 20));
+            mines.setFont(Font.font ("dubai", 20));
+        }
     }
 
     public void setDifficulty(int size){
