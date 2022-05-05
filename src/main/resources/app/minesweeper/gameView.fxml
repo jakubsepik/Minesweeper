@@ -96,7 +96,7 @@
 
                </center>
                <bottom>
-                  <Button fx:id="resetGame" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" text="RESET" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+                  <Button fx:id="resetGame" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" styleClass="Nbutton" text="RESET" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
                       <font>
                           <Font name="Dubai Bold" size="25.0" />
                       </font>
