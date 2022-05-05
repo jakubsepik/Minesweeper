@@ -3,16 +3,9 @@
     -fx-background-color: linear-gradient(to right, rgba(210,14,61,1),rgba(210,14,61,1),rgba(255,150,41,1),rgba(210,14,61,1));
 }
 
-
-/* Game layout */
-.back{
-
-}
-
 .root{
     -fx-alignment: center;
 }
-
 
 /* Blurry back panel in main CSS */
 .blurry{
@@ -115,4 +108,14 @@
 .mine-btn{
     -fx-background-color: rgba(255, 0, 0, 0.5);
     -fx-text-fill: black;
+}
+
+.easy{
+    -fx-background-color: green;
+}
+.medium{
+    -fx-background-color: green;
+}
+.hard{
+    -fx-background-color: green;
 }
