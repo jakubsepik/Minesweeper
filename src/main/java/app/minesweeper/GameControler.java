@@ -48,7 +48,7 @@ public class GameControler implements Initializable {
     private Integer timeSeconds = STARTTIME;
 
     /* velkost hracej plochy */
-    private int size, flagsCount, minesCount, showedCount;
+    private int size, flagsCount, minesCount, showedCount, writenCount;
     private double x, y;
     private boolean win, play;
     private Logic gamelogic;
@@ -109,6 +109,7 @@ public class GameControler implements Initializable {
         win = true;
         flagsCount = 0;
         showedCount = 0;
+        writenCount = 0;
         gamelogic = new Logic(size);
         minesCount = gamelogic.getMines();
         rootBox.setCenter(getGrid());
@@ -122,7 +123,6 @@ public class GameControler implements Initializable {
             timeline.stop();
         }
         timeSeconds = STARTTIME;
-
         // update timerLabel
         counter.setText(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
         timeline = new Timeline();
@@ -139,7 +139,6 @@ public class GameControler implements Initializable {
                         }
                     }
                 }));
-
         // vypis poctu min a vlajok
         timeline.playFromStart();
         mines.setText("Mines: "+ gamelogic.getMines());
@@ -244,7 +243,7 @@ public class GameControler implements Initializable {
     }
 
     // odstranenie vlajky z tlacitka
-    public void removeFlag(GridPane grid, int x, int y){
+    public void removeFlag(GridPane grid, int x, int y) throws IOException {
         play = gamelogic.removeFlag(x, y);
         flagsCount --;
         minesCount ++;
@@ -254,7 +253,7 @@ public class GameControler implements Initializable {
     }
 
     // pridanie vlajky na tlacitka
-    public void addFlag(GridPane grid, int x, int y){
+    public void addFlag(GridPane grid, int x, int y) throws IOException {
         play = gamelogic.addFlag(x, y);
         flagsCount ++;
         minesCount --;
@@ -288,7 +287,7 @@ public class GameControler implements Initializable {
         return possible;
     }
 
-    public void checkClick(MouseEvent e, GridPane grid, String btnText){
+    public void checkClick(MouseEvent e, GridPane grid, String btnText) throws IOException {
         int y =GridPane.getColumnIndex((Node) e.getSource());
         int x =GridPane.getRowIndex((Node) e.getSource());
         if (e.getButton() == MouseButton.PRIMARY && !btnText.equals("\uD83D\uDEA9")){ // lavy klik
@@ -318,7 +317,7 @@ public class GameControler implements Initializable {
     }
 
     // kontrola vyhry
-    public void checkIfWin(){
+    public void checkIfWin() throws IOException {
         if (showedCount == (size * size) - gamelogic.getMines()){
             play = true;
             win = true;
@@ -328,6 +327,12 @@ public class GameControler implements Initializable {
         if (play && win){
             status.setStyle("-fx-text-fill: green");
             status.setText("Vyhral si!");
+            if (writenCount == 0){
+                saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
+                saveBestTime(1,String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
+                writenCount = 1;
+            }
+            getCurrentFile();
         } else if (play && !win){
             status.setStyle("-fx-text-fill: red");
             status.setText("Prehral si!");
@@ -363,7 +368,13 @@ public class GameControler implements Initializable {
                 Button btn = new Button();
                 String btnText = btn.getText();
                 if (!inShowed(i, o)){
-                    btn.setOnMouseClicked(e -> {checkClick(e, grid, btnText);});
+                    btn.setOnMouseClicked(e -> {
+                        try {
+                            checkClick(e, grid, btnText);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
                 }
                 setBtnSize(btn);
                 grid.add(btn, i, o);
@@ -374,7 +385,7 @@ public class GameControler implements Initializable {
     }
 
     // update gridu po stlaceni na policko
-    public void updateGrid(GridPane grid, int x, int y, boolean showBtn){
+    public void updateGrid(GridPane grid, int x, int y, boolean showBtn) throws IOException {
         flagsList = gamelogic.getFlags(); // ziskanie kolekcie so suradnicami vlajok
         checkIfWin();
         GridPane newGrid = new GridPane();
@@ -390,7 +401,13 @@ public class GameControler implements Initializable {
                     addToShowed(i, o);
                 }
                 if (!play && !inShowed(i, o)) {
-                    newBtn.setOnMouseClicked(e -> {checkClick(e, newGrid, btnText);});
+                    newBtn.setOnMouseClicked(e -> {
+                        try {
+                            checkClick(e, newGrid, btnText);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
                 } else if (play){
                     timeline.stop();
                 };
@@ -467,11 +484,6 @@ public class GameControler implements Initializable {
             stage.show();
         }
         if(actionEvent.getSource()==resetGame){ // resetovanie hry
-            if (play && win){
-                saveTime(String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60)); // Zmeniť, dať tam kde sa detekuje vyhra
-                saveBestTime(1,String.format("%02d:%02d", (timeSeconds % 3600) / 60, timeSeconds % 60));
-            }
-            getCurrentFile();
             startGame();
         }
     }
