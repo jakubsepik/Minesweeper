@@ -9,26 +9,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
     @FXML
-    private AnchorPane backPanel;
+    private Button startButton,helpButton,exitButton, beginner, intermediate, expert;
     @FXML
-    private Button startButton,aboutButton,helpButton,exitButton, beginner, intermediate, expert;
-    @FXML
-    private Rectangle blurry,secondPanel,blurry2;
+    private Rectangle blurry2;
     private boolean vis;
 
     @Override
@@ -38,7 +33,6 @@ public class Controller implements Initializable {
 
     /* handling buttons clicks */
     public void handleButtonAction(ActionEvent actionEvent) throws IOException {
-
         /* open scene with game when startButton is clicked */
         if(actionEvent.getSource()==startButton){
             if (!vis){
@@ -56,10 +50,10 @@ public class Controller implements Initializable {
                 vis = false;
             }
         }  else if(actionEvent.getSource()==helpButton){
-            Parent root = FXMLLoader.load(getClass().getResource("helpView.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("helpView.fxml")));
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toString());
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.show();
@@ -74,7 +68,7 @@ public class Controller implements Initializable {
             gameControler.getLeader();
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toString());
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.show();
@@ -87,7 +81,7 @@ public class Controller implements Initializable {
             gameControler.getLeader();
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toString());
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.show();
@@ -100,7 +94,7 @@ public class Controller implements Initializable {
             gameControler.getLeader();
             stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("style.css").toString());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toString());
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.show();

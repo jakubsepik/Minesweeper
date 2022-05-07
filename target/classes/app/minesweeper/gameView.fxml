@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
+<AnchorPane fx:id="back" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.GameControler">
    <children>
        <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
            <children>
@@ -96,7 +96,7 @@
 
                </center>
                <bottom>
-                  <Button fx:id="resetGame" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" text="RESET" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+                  <Button id="Nbutton" fx:id="resetGame" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="51.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%)!important; -fx-text-fill: white!important;" styleClass="Nbutton" text="RESET" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
                       <font>
                           <Font name="Dubai Bold" size="25.0" />
                       </font>

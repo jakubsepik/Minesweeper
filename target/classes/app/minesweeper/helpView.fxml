@@ -9,21 +9,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="helpPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1920.0" styleClass="helpPanel" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.HelpControler">
+<AnchorPane fx:id="helpPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1920.0" styleClass="helpPanel" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.minesweeper.HelpControler">
    <children>
-      <ImageView fx:id="topImg" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="15.0">
+      <ImageView fx:id="topImg" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="15.0">
          <image>
             <Image url="@helpTop.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="panel1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="900.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="175.0">
          <children>
-            <ImageView fitHeight="95.0" fitWidth="250.0" layoutX="329.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="20.0">
+            <ImageView id="a" fx:id="a" fitHeight="95.0" fitWidth="250.0" layoutX="329.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="20.0">
                <image>
                   <Image url="@about.png" />
                </image>
             </ImageView>
-            <Label fx:id="help1" alignment="TOP_LEFT" layoutX="23.0" layoutY="101.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+            <Label fx:id="help1" alignment="TOP_LEFT" layoutX="23.0" layoutY="101.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                <font>
                   <Font name="Dubai Bold" size="28.0" />
                </font>
@@ -35,12 +35,12 @@
       </AnchorPane>
       <AnchorPane fx:id="panel2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="900.0" AnchorPane.bottomAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
          <children>
-            <ImageView fitHeight="200.0" fitWidth="400.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="20.0">
+            <ImageView id="r" fx:id="r" fitHeight="200.0" fitWidth="400.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="20.0">
                <image>
                   <Image url="@game.png" />
                </image>
             </ImageView>
-            <Label fx:id="help2" alignment="TOP_LEFT" layoutY="195.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+            <Label fx:id="help2" alignment="TOP_LEFT" layoutY="195.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello there - if you see this, something havent loaded" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                <font>
                   <Font name="Dubai Bold" size="28.0" />
                </font>
